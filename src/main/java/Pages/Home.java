@@ -4,8 +4,7 @@ import PageObjects.HomePage;
 import PageObjects.Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import service.ui.Driver;
+import service.ui.DriverManager;
 
 public class Home extends BasePage{
 
@@ -41,15 +40,15 @@ public class Home extends BasePage{
     }
 
     public boolean isDashBoardDisplayed(String name){
-        return Driver.getDriver().findElement(By.xpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).isDisplayed();
+        return DriverManager.getDriver().findElement(By.xpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).isDisplayed();
     }
 
     public boolean isDashBoardNotDisplayed(String name){
-        return Driver.getDriver().findElements(By.xpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).size() == 0;
+        return DriverManager.getDriver().findElements(By.xpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).size() == 0;
     }
 
     public void deleteDashBoard(String name){
-        WebElement deleteBtn = Driver.getDriver().findElement(By.xpath("//p[text()='" + name + "']/following-sibling::div/i[text()='close']"));
+        WebElement deleteBtn = DriverManager.getDriver().findElement(By.xpath("//p[text()='" + name + "']/following-sibling::div/i[text()='close']"));
         jsClick(deleteBtn);
         obj.deleteBtn.click();
     }

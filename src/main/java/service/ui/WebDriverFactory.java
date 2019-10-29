@@ -10,10 +10,10 @@ public class WebDriverFactory {
     private static final String CHROME = "chrome";
     private static final String FIREFOX = "firefox";
 
-    private WebDriverFactory() {
+    protected WebDriverFactory() {
     }
 
-    public static WebDriver getInstance(String browserName) throws Exception {
+    public WebDriver getInstance(String browserName) throws Exception {
         WebDriver webDriver = null;
 
         if (CHROME.equals(browserName.toLowerCase())) {

@@ -1,6 +1,5 @@
 package Pages;
 
-import PageObjects.HomePage;
 import PageObjects.Pages;
 import PageObjects.SettingsPage;
 

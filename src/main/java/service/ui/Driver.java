@@ -9,32 +9,38 @@ import java.util.concurrent.TimeUnit;
 public class Driver {
     final static Logger logger = Logger.getLogger(Driver.class);
 
+    private String baseUrl = Config.getUrl();
+    private WebDriver webDriver;
 
-    private static String baseUrl = Config.getUrl();
-    private static String browser = Config.getBrowser();
-    private static WebDriver webDriver;
-
-    public static void Initialize() throws Exception {
-        webDriver = WebDriverFactory.getInstance(browser);
-        webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        webDriver.manage().window().maximize();
+    public Driver() {
         logger.info("Driver initialization");
+        try {
+            this.webDriver =  Initialize();
+            webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            webDriver.manage().window().maximize();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static WebDriver getDriver(){
+    private WebDriver Initialize() throws Exception {
+        return new WebDriverFactory().getInstance(Config.getBrowser());
+    }
+
+    public WebDriver getDriver() {
         return webDriver;
     }
 
-    public static void goTo(String url){
+    public void goTo(String url) {
         webDriver.get(baseUrl + url);
         logger.info("Open " + url);
     }
 
-    public static void close(){
+    public void close() {
         webDriver.close();
     }
 
-    public static String getTitle(){
+    public String getTitle() {
         logger.info("Get title");
         return webDriver.getTitle();
     }

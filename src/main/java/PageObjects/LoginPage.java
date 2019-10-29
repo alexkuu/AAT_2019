@@ -3,7 +3,6 @@ package PageObjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import service.ui.Driver;
 
 public class LoginPage {
 
@@ -21,9 +20,5 @@ public class LoginPage {
     public WebElement loginError;
 
     public LoginPage(){
-    }
-
-    public void openHomePage(){
-        Driver.goTo("");
     }
 }

@@ -1,22 +1,23 @@
 package uiTests;
 
 import org.apache.log4j.Logger;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import service.ui.Driver;
+import service.ui.DriverManager;
 
 public class BaseTest {
     final static Logger logger = Logger.getLogger(BaseTest.class);
 
-    @BeforeClass
-    public void init() throws Exception {
-        Driver.Initialize();
+    @BeforeEach
+    public void init() {
+        DriverManager.set(new Driver());
         logger.info("Before class");
     }
 
-    @AfterClass
+    @AfterEach
     public void shutDown(){
-        Driver.close();
+        DriverManager.get().close();
         logger.info("Shut down");
     }
 

@@ -1,44 +1,43 @@
 package Pages;
 
-import PageObjects.HomePage;
 import PageObjects.LoginPage;
 import PageObjects.Pages;
-import org.apache.log4j.Logger;
+import service.User;
 
-public class Login extends BasePage{
+public class Login extends BasePage {
 
-    static LoginPage obj;
+    LoginPage obj;
 
-    public Login(){
+    public Login() {
         obj = Pages.getLoginPage();
     }
 
-    public void openHomePage(){
-        obj.openHomePage();
-    }
-
-    public void typeUser(String username){
+    public void typeUser(String username) {
         obj.usernameField.clear();
         obj.usernameField.sendKeys(username);
     }
 
-    public void typePassword(String password){
+    public void typePassword(String password) {
         obj.passwordField.clear();
         obj.passwordField.sendKeys(password);
     }
 
-    public void submitLogin(){
+    public void submitLogin() {
         obj.loginBtn.click();
     }
 
-    public void login(String username, String password){
+    public void login(User user) {
+        login(user.getName(), user.getPassword());
+    }
+
+    public void login(String username, String password) {
         typeUser(username);
         typePassword(password);
         submitLogin();
         logger.info("Login as:  " + username);
     }
 
-    public boolean isErrorMessageDisplayed(){
+    public boolean isErrorMessageDisplayed() {
         return obj.loginError.isDisplayed();
     }
 }
