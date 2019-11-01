@@ -5,15 +5,17 @@ import service.ui.DriverManager;
 
 public class Pages {
 
-    public static HomePage getHomePage(){
+    public Pages(){}
+
+    public HomePage getHomePage(){
         return PageFactory.initElements(DriverManager.getDriver(), HomePage.class);
     }
 
-    public static LoginPage getLoginPage(){
+    public LoginPage getLoginPage(){
         return PageFactory.initElements(DriverManager.getDriver(), LoginPage.class);
     }
 
-    public static SettingsPage getSettingsPage(){
+    public SettingsPage getSettingsPage(){
         return PageFactory.initElements(DriverManager.getDriver(), SettingsPage.class);
     }
 }

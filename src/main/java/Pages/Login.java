@@ -6,10 +6,10 @@ import service.User;
 
 public class Login extends BasePage {
 
-    LoginPage obj;
+    private LoginPage obj;
 
     public Login() {
-        obj = Pages.getLoginPage();
+        obj = new Pages().getLoginPage();
     }
 
     public void typeUser(String username) {

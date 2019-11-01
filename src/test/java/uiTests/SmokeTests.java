@@ -17,7 +17,6 @@ import static service.UserFactory.getUser;
 @Execution(ExecutionMode.CONCURRENT)
 public class SmokeTests extends BaseTest {
 
-    @Disabled
     @DisplayName("Success login")
     @ParameterizedTest(name = "Login as {0}")
     @ValueSource(strings = {"user", "admin"})

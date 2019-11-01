@@ -9,10 +9,10 @@ import service.ui.DriverManager;
 public class Home extends BasePage{
 
 
-    static HomePage obj;
+    private HomePage obj;
 
     public Home(){
-        obj = Pages.getHomePage();
+        obj = new Pages().getHomePage();
     }
 
     public boolean isDashBoardsListDisplayed(){
@@ -37,6 +37,7 @@ public class Home extends BasePage{
         obj.newDashboardName.clear();
         obj.newDashboardName.sendKeys(name);
         obj.addBtn.click();
+        logger.info("Dashboard has been added ");
     }
 
     public boolean isDashBoardDisplayed(String name){

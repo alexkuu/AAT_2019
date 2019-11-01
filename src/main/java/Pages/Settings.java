@@ -6,10 +6,10 @@ import PageObjects.SettingsPage;
 public class Settings extends BasePage{
 
 
-    static SettingsPage obj;
+    private SettingsPage obj;
 
     public Settings(){
-        obj = Pages.getSettingsPage();
+        obj = new Pages().getSettingsPage();
     }
 
     public boolean isSettingsPageDisplayed(){
