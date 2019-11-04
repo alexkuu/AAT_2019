@@ -3,33 +3,34 @@ package uiTests;
 import Pages.Home;
 import Pages.Login;
 import Pages.Settings;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import static service.UserFactory.getUser;
 
-@Execution(ExecutionMode.CONCURRENT)
+@RunWith(JUnitParamsRunner.class)
 public class SmokeTests extends BaseTest {
 
-    @DisplayName("Success login")
-    @ParameterizedTest(name = "Login as {0}")
-    @ValueSource(strings = {"user", "admin"})
+    @Parameterized.Parameters
+    public static Object[] users() {
+        return new Object[] { "admin", "user" };
+    }
+
+    @Test
+    @Parameters(method = "users")
     public void loginSuccess(String userRole) throws Exception {
         Login login = new Login();
         Home home = new Home();
-        throw new Exception("Test");
-//        login.openHomePage();
-//        login.login(getUser(userRole));
-//        assertTrue(home.isDashBoardsListDisplayed());
-//        home.logout();
+        login.openHomePage();
+        login.login(getUser(userRole));
+        assertTrue(home.isDashBoardsListDisplayed());
+        home.logout();
     }
 
-    @DisplayName("Failed login")
     @Test
     public void loginFailed() {
         Login login = new Login();
@@ -38,7 +39,6 @@ public class SmokeTests extends BaseTest {
         assertTrue(login.isErrorMessageDisplayed());
     }
 
-    @DisplayName("Check settings access")
     @Test
     public void checkSettings() {
         Login login = new Login();
@@ -51,7 +51,6 @@ public class SmokeTests extends BaseTest {
         home.logout();
     }
 
-    @DisplayName("Check dashboard workflow")
     @Test
     public void DashBoardAddEditDelete() {
         String dashBoardName = "dash_" + Math.random();
@@ -63,6 +62,18 @@ public class SmokeTests extends BaseTest {
         assertTrue(home.isDashBoardDisplayed(dashBoardName));
         home.deleteDashBoard(dashBoardName);
         assertTrue(home.isDashBoardNotDisplayed(dashBoardName));
+        home.logout();
+    }
+
+    @Test
+    public void DemoDashboard(){
+        Login login = new Login();
+        Home home = new Home();
+        login.openHomePage();
+        login.login(getUser("admin"));
+        home.openDemoDashBoard();
+        assertTrue(home.isDemoInfoBlockDisplayed());
+        home.clickLogo();
         home.logout();
     }
 }

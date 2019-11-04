@@ -53,4 +53,12 @@ public class Home extends BasePage{
         jsClick(deleteBtn);
         obj.deleteBtn.click();
     }
+
+    public void openDemoDashBoard(){
+        obj.demoDashBoard.click();
+    }
+
+    public boolean isDemoInfoBlockDisplayed(){
+        return obj.demoInfoBlock.isDisplayed();
+    }
 }

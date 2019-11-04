@@ -33,6 +33,12 @@ public class HomePage {
     @FindBy(how = How.XPATH, using = "//button[contains(.,'Delete')]")
     public WebElement deleteBtn;
 
+    @FindBy(how = How.XPATH, using = "//div[@class='dashboard-content']//p[@data-js-name][text()='DEMO DASHBOARD#demo_']")
+    public WebElement demoDashBoard;
+
+    @FindBy(how = How.XPATH, using = "//div[@class='info-block']//*[@data-js-name][text()='LAUNCH STATISTICS AREA CHART#demo_']")
+    public WebElement demoInfoBlock;
+
     public HomePage(){
     }
 }
