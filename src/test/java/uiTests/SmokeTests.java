@@ -3,7 +3,6 @@ package uiTests;
 import Pages.Home;
 import Pages.Login;
 import Pages.Settings;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
@@ -23,10 +22,11 @@ public class SmokeTests extends BaseTest {
     public void loginSuccess(String userRole) throws Exception {
         Login login = new Login();
         Home home = new Home();
-        login.openHomePage();
-        login.login(getUser(userRole));
-        assertTrue(home.isDashBoardsListDisplayed());
-        home.logout();
+        throw new Exception("Test");
+//        login.openHomePage();
+//        login.login(getUser(userRole));
+//        assertTrue(home.isDashBoardsListDisplayed());
+//        home.logout();
     }
 
     @DisplayName("Failed login")

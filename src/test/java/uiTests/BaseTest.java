@@ -1,8 +1,7 @@
 package uiTests;
 
 import org.apache.log4j.Logger;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import service.ui.Driver;
 import service.ui.DriverManager;
 
@@ -16,7 +15,8 @@ public class BaseTest {
     }
 
     @AfterEach
-    public void shutDown(){
+    public void shutDown(TestInfo ti, TestReporter reporter){
+        assert true;
         DriverManager.get().close();
         logger.info("Shut down");
     }
