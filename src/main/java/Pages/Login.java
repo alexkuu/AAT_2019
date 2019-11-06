@@ -1,16 +1,17 @@
 package Pages;
 
-import PageObjects.HomePage;
 import PageObjects.LoginPage;
 import PageObjects.Pages;
-import org.apache.log4j.Logger;
+import service.User;
+
+import static service.UserFactory.getUser;
 
 public class Login extends BasePage{
 
-    static LoginPage obj;
+    LoginPage obj;
 
-    public Login(){
-        obj = Pages.getLoginPage();
+    public Login() {
+        obj = new Pages().getLoginPage();
     }
 
     public void openHomePage(){
@@ -31,7 +32,15 @@ public class Login extends BasePage{
         obj.loginBtn.click();
     }
 
-    public void login(String username, String password){
+    public void login(User user) {
+        login(user.getName(), user.getPassword());
+    }
+
+    public void login(String role){
+        login(getUser(role));
+    }
+
+    public void login(String username, String password) {
         typeUser(username);
         typePassword(password);
         submitLogin();

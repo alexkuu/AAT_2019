@@ -8,8 +8,8 @@ public class SmokeDataProvider {
     @DataProvider
     public static Object[][] users() {
         return new Object[][]{
-                {"default", "1q2w3e"},
-                {Config.getAdminName(), Config.getAdminPassword()}
+                {"user"},
+                {"admin"}
         };
     }
 

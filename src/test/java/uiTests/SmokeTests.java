@@ -6,16 +6,17 @@ import Pages.Settings;
 import dataProvider.SmokeDataProvider;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import service.Config;
+
+import static service.UserFactory.getUser;
 
 public class SmokeTests extends BaseTest {
 
     @Test(dataProvider = "users", dataProviderClass = SmokeDataProvider.class)
-    public void loginSuccess(String userName, String password){
+    public void loginSuccess(String userRole){
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login(userName, password);
+        login.login(userRole);
         Assert.assertTrue(home.isDashBoardsListDisplayed());
         home.logout();
     }
@@ -24,7 +25,7 @@ public class SmokeTests extends BaseTest {
     public void loginFailed(){
         Login login = new Login();
         login.openHomePage();
-        login.login(Config.getUserName(), "wronG_PassW0RD");
+        login.login(getUser("user").getName(), "wronG_PassW0RD");
         Assert.assertTrue(login.isErrorMessageDisplayed());
     }
 
@@ -33,7 +34,7 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login(Config.getUserName(), Config.getUserPassword());
+        login.login("user");
         home.openSettings();
         Assert.assertTrue(new Settings().isSettingsPageDisplayed());
         home.clickLogo();
@@ -46,7 +47,7 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login(Config.getUserName(), Config.getUserPassword());
+        login.login("user");
         home.addNewDashBoard(dashBoardName);
         Assert.assertTrue(home.isDashBoardDisplayed(dashBoardName));
         home.deleteDashBoard(dashBoardName);

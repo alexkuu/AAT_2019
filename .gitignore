@@ -1,0 +1,7 @@
+/.idea
+/.idea/*
+/taf2019.iml
+/target
+/target/*
+/test-output
+/test-output/*

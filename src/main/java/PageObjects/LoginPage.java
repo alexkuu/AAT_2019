@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import service.ui.Driver;
+import service.ui.DriverManager;
 
 public class LoginPage {
 
@@ -24,6 +25,6 @@ public class LoginPage {
     }
 
     public void openHomePage(){
-        Driver.goTo("");
+        DriverManager.get().goTo("");
     }
 }
