@@ -42,8 +42,8 @@ public class SmokeTests extends BaseTest {
     }
 
     @Test
-    public void wDashBoardAddEditDelete(){
-        String dashBoardName = "dash_" + Math.random();
+    public void dashBoardAddEditDelete(){
+        String dashBoardName = "dash_" + (int)(Math.random() * 9999999) + 1;
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
@@ -51,7 +51,6 @@ public class SmokeTests extends BaseTest {
         home.addNewDashBoard(dashBoardName);
         Assert.assertTrue(home.isDashBoardDisplayed(dashBoardName));
         home.deleteDashBoard(dashBoardName);
-        Assert.assertTrue(home.isDashBoardNotDisplayed(dashBoardName));
         home.logout();
     }
 }

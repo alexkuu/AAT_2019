@@ -1,18 +1,19 @@
 package Pages;
 
+import Interfaces.pageObjects.SettingsPage;
 import PageObjects.Pages;
-import PageObjects.SettingsPage;
 
-public class Settings extends BasePage{
+public class Settings extends BasePage {
 
 
-    static SettingsPage obj;
+    private static SettingsPage obj;
 
-    public Settings(){
+    public Settings() {
         obj = new Pages().getSettingsPage();
     }
-    public boolean isSettingsPageDisplayed(){
-        return obj.pageTitle.isDisplayed();
+
+    public boolean isSettingsPageDisplayed() {
+        return obj.isSettingPageDisplayed();
     }
 
 }

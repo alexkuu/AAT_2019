@@ -1,5 +1,7 @@
 package service;
 
+import Enums.Frameworks;
+
 public class Config {
     private static final String PROPERTY_FILE = "application.properties";
 
@@ -7,6 +9,7 @@ public class Config {
     private static String url;
     private static String apiUrl;
     private static String browser;
+    private static Frameworks framework;
 
     private static PropReader pReader = new PropReader(PROPERTY_FILE);
 
@@ -36,5 +39,17 @@ public class Config {
             apiUrl = loadProperty("api.url");
         }
         return apiUrl;
+    }
+
+    public static Frameworks getFramework() {
+        if (framework == null) {
+            String framework_as_string = loadProperty("framework");
+            if (framework_as_string.equals(Frameworks.SELENIUM.toString().toLowerCase())) {
+                framework = Frameworks.SELENIUM;
+            } else if (framework_as_string.equals(Frameworks.SELENIDE.toString().toLowerCase())) {
+                framework = Frameworks.SELENIDE;
+            }
+        }
+        return framework;
     }
 }

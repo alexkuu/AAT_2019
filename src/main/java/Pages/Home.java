@@ -1,56 +1,56 @@
 package Pages;
 
-import PageObjects.HomePage;
+import Interfaces.pageObjects.HomePage;
 import PageObjects.Pages;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import service.ui.Driver;
-import service.ui.DriverManager;
 
-public class Home extends BasePage{
+public class Home extends BasePage {
 
 
     static HomePage obj;
 
-    public Home(){
+    public Home() {
         obj = new Pages().getHomePage();
     }
-    public boolean isDashBoardsListDisplayed(){
-        return obj.dashboardsList.isDisplayed();
+
+    public boolean isDashBoardsListDisplayed() {
+        return obj.isDashBoardListDisplayed();
     }
 
-    public void logout(){
-        obj.profileExpander.click();
-        obj.logoutLink.click();
+    public void logout() {
+        obj.logout();
     }
 
-    public void clickLogo(){
-        obj.logo.click();
+    public void clickLogo() {
+        obj.clickLogo();
     }
 
-    public void openSettings(){
-        obj.settingsLink.click();
+    public void openSettings() {
+        obj.openSettings();
     }
 
-    public void addNewDashBoard(String name){
-        obj.addNewDashboardBtn.click();
-        obj.newDashboardName.clear();
-        obj.newDashboardName.sendKeys(name);
-        obj.addBtn.click();
+    public void addNewDashBoard(String name) {
+        clickAddNewDashBoard();
+        typeNewDashBoardName(name);
+        clickAddDashBoard();
     }
 
-    public boolean isDashBoardDisplayed(String name){
-        return DriverManager.getDriver().findElement(By.xpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).isDisplayed();
+    private void clickAddNewDashBoard() {
+        obj.clickAddNewDashBoard();
     }
 
-    public boolean isDashBoardNotDisplayed(String name){
-        return DriverManager.getDriver().findElements(By.xpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).size() == 0;
+    private void typeNewDashBoardName(String name) {
+        obj.inputNewDashboardName(name);
     }
 
-    public void deleteDashBoard(String name){
-        WebElement deleteBtn = DriverManager.getDriver().findElement(By.xpath("//p[text()='" + name + "']/following-sibling::div/i[text()='close']"));
-        jsClick(deleteBtn);
-        obj.deleteBtn.click();
+    private void clickAddDashBoard() {
+        obj.clickAddDashBoard();
+    }
+
+    public boolean isDashBoardDisplayed(String name) {
+        return obj.isDashboardDisplayed(name);
+    }
+
+    public void deleteDashBoard(String name) {
+        obj.deleteDashboard(name);
     }
 }
