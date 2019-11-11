@@ -1,6 +1,7 @@
 package uiTests;
 
 import org.apache.log4j.Logger;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import service.ui.Driver;
@@ -16,7 +17,10 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void shutDown() {
+    public void shutDown(ITestResult result) {
+        if (!result.isSuccess()) {
+            DriverManager.makeScreenshot(result.getName());
+        }
         DriverManager.get().close();
         logger.info("Shut down");
     }

@@ -1,16 +1,12 @@
 package selenium.pageObjects;
 
 import Interfaces.pageObjects.HomePage;
-import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import service.ui.DriverManager;
 import service.ui.MiscActions;
-
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
 
 public class HomePageSelenium implements HomePage {
 
@@ -97,5 +93,52 @@ public class HomePageSelenium implements HomePage {
     @Override
     public boolean isDashBoardListDisplayed() {
         return dashboardsList.isDisplayed();
+    }
+
+    @Override
+    public void openDemoDashboard() {
+        MiscActions.waitUntilElementIsExists(By.xpath("//div[@class='dashboard-content'][div[@class='name-wrapper']/p[text()='DEMO DASHBOARD#demo']]")).click();
+        MiscActions.waitUntilElementIsExists(By.xpath("//ul[@class='main-breadcrumbs']//span[text()='DEMO DASHBOARD#demo']"));
+    }
+
+    @Override
+    public void dragNDropDemoChartByOffset(int x, int y) {
+        MiscActions.dragNDropByOffset(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='gadget-header ui-draggable-handle']"), x, y);
+    }
+
+    @Override
+    public boolean demoChartOnTheRightSide() {
+        return DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-x").equals("6");
+    }
+
+    @Override
+    public boolean demoChartOnTheLeftSide() {
+        return DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-x").equals("0");
+    }
+
+    @Override
+    public void increaseDemoChartHeight() {
+        MiscActions.hoverElement1DragElement2(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']"), By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']"), 0, 80);
+    }
+
+    @Override
+    public void decreaseDemoChartHeight() {
+        MiscActions.hoverElement1DragElement2(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']"), By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']"), 0, -80);
+    }
+
+    @Override
+    public int getDemoChartHeight() {
+        return Integer.valueOf(DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-height"));
+    }
+
+    @Override
+    public int getDemoChartWidth() {
+        return Integer.valueOf(DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-width"));
+    }
+
+    @Override
+    public void increaseDemoChartWidth(int x) {
+        MiscActions.hoverElement1DragElement2(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']"), By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']"), x, 0);
+
     }
 }

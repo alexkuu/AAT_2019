@@ -11,5 +11,14 @@ public interface HomePage {
     void deleteDashboard(String name);
     boolean isDashboardDisplayed(String name);
     boolean isDashBoardListDisplayed();
+    void openDemoDashboard();
+    void dragNDropDemoChartByOffset(int x, int y);
+    boolean demoChartOnTheRightSide();
+    boolean demoChartOnTheLeftSide();
+    void increaseDemoChartHeight();
+    void decreaseDemoChartHeight();
+    int getDemoChartHeight();
+    int getDemoChartWidth();
+    void increaseDemoChartWidth(int x);
 
 }
