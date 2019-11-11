@@ -2,8 +2,6 @@ package selenide.pageObjects;
 
 import Interfaces.pageObjects.HomePage;
 import com.codeborne.selenide.Condition;
-import org.openqa.selenium.By;
-import service.ui.DriverManager;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -41,7 +39,7 @@ public class HomePageSelenide implements HomePage {
     @Override
     public void clickAddDashBoard() {
         $(byXpath("//div[@class='modal-footer']//button[contains(.,'Add')]")).click();
-        $(byText("Dashboard has been added")).shouldBe(Condition.visible);
+        $(byText("Dashboard has been added")).waitUntil(Condition.visible, 10000);
     }
 
     @Override

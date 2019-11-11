@@ -1,6 +1,7 @@
 package Interfaces.pageObjects;
 
 public interface HomePage {
+
     void logout();
     void clickLogo();
     void openSettings();
@@ -10,4 +11,5 @@ public interface HomePage {
     void deleteDashboard(String name);
     boolean isDashboardDisplayed(String name);
     boolean isDashBoardListDisplayed();
+
 }
