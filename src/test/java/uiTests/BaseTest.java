@@ -19,7 +19,7 @@ public class BaseTest {
     @AfterMethod
     public void shutDown(ITestResult result) {
         if (!result.isSuccess()) {
-            DriverManager.makeScreenshot(result.getName());
+            logger.info("Screenshot created: " + DriverManager.makeScreenshot(result.getName()));
         }
         DriverManager.get().close();
         logger.info("Shut down");

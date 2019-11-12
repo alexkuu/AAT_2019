@@ -3,8 +3,8 @@ package selenide.pageObjects;
 import Interfaces.pageObjects.HomePage;
 import com.codeborne.selenide.Condition;
 import org.openqa.selenium.By;
-import service.ui.DriverManager;
 import service.ui.MiscActions;
+import service.ui.Widget;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -71,45 +71,44 @@ public class HomePageSelenide implements HomePage {
 
     @Override
     public void dragNDropDemoChartByOffset(int x, int y) {
-        MiscActions.dragNDropByOffset(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='gadget-header ui-draggable-handle']"), x, y);
+        MiscActions.dragNDropByOffset(By.xpath(Widget.getTopWidgetMoverXpath()), x, y);
     }
 
     @Override
     public boolean demoChartOnTheRightSide() {
-        return $(byXpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-x").equals("6");
+        return Widget.getTopWidgetXPos() == 6;
     }
 
     @Override
     public boolean demoChartOnTheLeftSide() {
-        return $(byXpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-x").equals("0");
+        return Widget.getTopWidgetXPos() == 0;
     }
 
     @Override
     public void increaseDemoChartHeight() {
-        $(byXpath("//div[@data-id='5dc938fb9daec200016cdbae']")).hover();
-        MiscActions.dragNDropByOffset(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']"), 0, 80);
+        $(byXpath(Widget.getTopWidgetMainXpath())).hover();
+        MiscActions.dragNDropByOffset(By.xpath(Widget.getTopWidgetResizerXpath()), 0, 80);
     }
 
     @Override
     public void decreaseDemoChartHeight() {
-        $(byXpath("//div[@data-id='5dc938fb9daec200016cdbae']")).hover();
-        MiscActions.dragNDropByOffset(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']"), 0, -80);
+        $(byXpath(Widget.getTopWidgetMainXpath())).hover();
+        MiscActions.dragNDropByOffset(By.xpath(Widget.getTopWidgetResizerXpath()), 0, -80);
     }
 
     @Override
     public int getDemoChartHeight() {
-        return Integer.valueOf($(byXpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-height"));
+        return Widget.getTopWidgetHeight();
     }
 
     @Override
     public int getDemoChartWidth() {
-        return Integer.valueOf(DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']")).getAttribute("data-gs-width"));
+        return Widget.getTopWidgetWidth();
     }
 
     @Override
     public void increaseDemoChartWidth(int x) {
-        MiscActions.hoverElement1DragElement2(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']"), By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']"), x, 0);
-
+        MiscActions.hoverElement1DragElement2(By.xpath(Widget.getTopWidgetMainXpath()), By.xpath(Widget.getTopWidgetResizerXpath()), x, 0);
     }
 
 }

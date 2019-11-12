@@ -6,8 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+import service.Config;
 import service.ui.DriverManager;
 import service.ui.MiscActions;
+import service.ui.Widget;
 
 public class Home extends BasePage {
 
@@ -98,10 +100,6 @@ public class Home extends BasePage {
 
     //Test method
     public void checkGreyZoneDuringResize() {
-        WebElement widget = DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']"));
-        WebElement sizer = DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//div[@class='ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se']"));
-
-
         try {
             MiscActions.changeImplicitWait(3);
 
@@ -109,8 +107,8 @@ public class Home extends BasePage {
             Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath("placeholder-content")).size(), 0);
             MiscActions.changeImplicitWait(30);
 
-            new Actions(DriverManager.getDriver()).moveToElement(widget)
-                    .moveToElement(sizer)
+            new Actions(DriverManager.getDriver()).moveToElement(Widget.getTopWidgetElement())
+                    .moveToElement(Widget.getTopWidgetSizer())
                     .clickAndHold()
                     .moveByOffset(-30, 0)
                     .build()
@@ -123,5 +121,10 @@ public class Home extends BasePage {
         } finally {
             MiscActions.changeImplicitWait(30);
         }
+    }
+
+    //Test method
+    public void moveBottomWidgetToTheTop(){
+
     }
 }

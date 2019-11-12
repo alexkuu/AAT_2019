@@ -11,6 +11,10 @@ public class Config {
     private static String browser;
     private static Frameworks framework;
 
+    // Widgets
+    private static String topWidgetId;
+    private static String bottomWidgetId;
+
     private static PropReader pReader = new PropReader(PROPERTY_FILE);
 
     private Config() {
@@ -51,5 +55,19 @@ public class Config {
             }
         }
         return framework;
+    }
+
+    public static String getTopWidgetId() {
+        if (topWidgetId == null) {
+            topWidgetId = loadProperty("widgets.top.id");
+        }
+        return topWidgetId;
+    }
+
+    public static String getBottomWidgetId() {
+        if (bottomWidgetId == null) {
+            bottomWidgetId = loadProperty("widgets.bottom.id");
+        }
+        return bottomWidgetId;
     }
 }

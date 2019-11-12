@@ -8,8 +8,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import service.Config;
 import service.ui.DriverManager;
 import service.ui.MiscActions;
+import service.ui.Widget;
 
 import static service.UserFactory.getUser;
 
@@ -145,7 +147,7 @@ public class SmokeTests extends BaseTest {
         login.openHomePage();
         login.login("user");
         home.openDemoDashboard();
-        WebElement svg = DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']//*[local-name() = 'svg']"));
+        WebElement svg = DriverManager.getDriver().findElement(By.xpath(Widget.getTopWidgetMainXpath() + "//*[local-name() = 'svg']"));
         double initWidth = Double.valueOf(svg.getAttribute("width"));
         home.increaseDemoChartWidth(700);
         try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
@@ -176,22 +178,22 @@ public class SmokeTests extends BaseTest {
 
     @Test
     public void scrollTo_elementIsOnView_waitJsLoad_Demo() {
-        By bottomElement = By.xpath("//div[@data-id='5dc938fb9daec200016cdbb6']");
-        By topElement = By.xpath("//div[@data-id='5dc938fb9daec200016cdbae']");
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
         login.login("user");
         home.openDemoDashboard();
         MiscActions.waitPageToLoad();
-        Assert.assertFalse(MiscActions.elementIsOnView(bottomElement));
-        Assert.assertTrue(MiscActions.elementIsOnView(topElement));
-        MiscActions.scrollTo(bottomElement);
-        Assert.assertTrue(MiscActions.elementIsOnView(bottomElement));
-        Assert.assertFalse(MiscActions.elementIsOnView(topElement));
-        MiscActions.scrollTo(topElement);
-        Assert.assertFalse(MiscActions.elementIsOnView(bottomElement));
-        Assert.assertTrue(MiscActions.elementIsOnView(topElement));
+        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getTopWidgetElement()));
+        MiscActions.scrollTo(Widget.getBottomWidgetElement());
+        MiscActions.waitPageToLoad();
+        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getTopWidgetElement()));
+        MiscActions.scrollTo(Widget.getTopWidgetElement());
+        MiscActions.waitPageToLoad();
+        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getTopWidgetElement()));
         home.logout();
     }
 }

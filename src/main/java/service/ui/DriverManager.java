@@ -24,13 +24,16 @@ public class DriverManager {
         threadLocalDriver.set(driver);
     }
 
-    public static void makeScreenshot(String testName) {
+    public static String makeScreenshot(String testName) {
         File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+        String fileName = "test-output/" + testName + "_" + (System.currentTimeMillis() / 1000L) + "_screenshot.png";
         try {
-            FileUtils.copyFile(scrFile, new File("test-output/" + testName + "_" + (System.currentTimeMillis() / 1000L) + "_screenshot.png"));
+            FileUtils.copyFile(scrFile, new File(fileName));
         } catch (IOException e) {
+            fileName = "<error>";
             e.printStackTrace();
         }
+        return fileName;
     }
 
 }
