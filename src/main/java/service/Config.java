@@ -14,6 +14,7 @@ public class Config {
     // Widgets
     private static String topWidgetId;
     private static String bottomWidgetId;
+    private static String overallStatisticsWidgetId;
 
     private static PropReader pReader = new PropReader(PROPERTY_FILE);
 
@@ -69,5 +70,12 @@ public class Config {
             bottomWidgetId = loadProperty("widgets.bottom.id");
         }
         return bottomWidgetId;
+    }
+
+    public static String getOverallStatisticsWidgetId() {
+        if (overallStatisticsWidgetId == null) {
+            overallStatisticsWidgetId = loadProperty("widgets.overallstatistics.id");
+        }
+        return overallStatisticsWidgetId;
     }
 }

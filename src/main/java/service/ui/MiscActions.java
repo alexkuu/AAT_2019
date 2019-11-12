@@ -103,4 +103,8 @@ public class MiscActions {
     public static void changeImplicitWait(int seconds) {
         DriverManager.getDriver().manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
+
+    public static void scrollToTheBottom(){
+        DriverManager.getDriver().findElement(By.tagName("body")).sendKeys(Keys.END);
+    }
 }

@@ -4,6 +4,7 @@ import Pages.Home;
 import Pages.Login;
 import Pages.Settings;
 import dataProvider.SmokeDataProvider;
+import javafx.geometry.Pos;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -194,6 +195,61 @@ public class SmokeTests extends BaseTest {
         MiscActions.waitPageToLoad();
         Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
         Assert.assertTrue(MiscActions.elementIsOnView(Widget.getTopWidgetElement()));
+        home.logout();
+    }
+
+    @Test
+    public void move_bottom_widget_to_the_top_and_back_Demo() {
+        Login login = new Login();
+        Home home = new Home();
+        login.openHomePage();
+        login.login("user");
+        home.openDemoDashboard();
+        MiscActions.waitPageToLoad();
+        Assert.assertEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
+        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        MiscActions.scrollTo(Widget.getBottomWidgetElement());
+        MiscActions.waitPageToLoad();
+        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        home.moveBottomWidgetToTheTop();
+        home.clickLogo();
+        home.openDemoDashboard();
+        Assert.assertNotEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
+        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        home.moveBottomWidgetToTheBottom();
+        home.clickLogo();
+        home.openDemoDashboard();
+        Assert.assertEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
+        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        home.logout();
+    }
+
+    @Test
+    public void dashboard_proposes_the_new_position_using_gray_square_Demo() {
+        Login login = new Login();
+        Home home = new Home();
+        login.openHomePage();
+        login.login("user");
+        home.openDemoDashboard();
+        MiscActions.waitPageToLoad();
+        home.checkGreyZoneDuringMove();
+        home.logout();
+    }
+
+    @Test
+    public void verify_content_scrolling_independently_from_page_for_widget_OVERALL_STATISTICS_PANEL_Demo() {
+        Login login = new Login();
+        Home home = new Home();
+        login.openHomePage();
+        login.login("user");
+        home.openDemoDashboard();
+        MiscActions.waitPageToLoad();
+        MiscActions.scrollTo(Widget.getOverallStatisticsWidgetElement());
+        MiscActions.waitPageToLoad();
+        String initRightPartTopPosition = DriverManager.getDriver().findElement(By.xpath(Widget.getOSRightPartScrollerXpath())).getCssValue("top");
+        MiscActions.hoverElement1DragElement2(By.xpath(Widget.getOSLeftPartXpath()), By.xpath(Widget.getOSLeftPartScrollerXpath()), 0, 50);
+        String currentRightPartTopPosition = DriverManager.getDriver().findElement(By.xpath(Widget.getOSRightPartScrollerXpath())).getCssValue("top");
+        Assert.assertEquals(initRightPartTopPosition, currentRightPartTopPosition);
         home.logout();
     }
 }

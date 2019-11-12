@@ -104,7 +104,7 @@ public class HomePageSelenium implements HomePage {
 
     @Override
     public void dragNDropDemoChartByOffset(int x, int y) {
-        MiscActions.dragNDropByOffset(By.xpath(Widget.getTopWidgetMoverXpath()), x, y);
+        MiscActions.dragNDropByOffset(Widget.getTopWidgetMover(), x, y);
     }
 
     @Override

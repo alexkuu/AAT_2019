@@ -3,10 +3,8 @@ package Pages;
 import Interfaces.pageObjects.HomePage;
 import PageObjects.Pages;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-import service.Config;
 import service.ui.DriverManager;
 import service.ui.MiscActions;
 import service.ui.Widget;
@@ -122,9 +120,54 @@ public class Home extends BasePage {
             MiscActions.changeImplicitWait(30);
         }
     }
+    //Test method
+    public void checkGreyZoneDuringMove() {
+        try {
+            MiscActions.changeImplicitWait(3);
+
+            // First check that placeholder not exists
+            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath("placeholder-content")).size(), 0);
+            MiscActions.changeImplicitWait(30);
+
+            new Actions(DriverManager.getDriver()).moveToElement(Widget.getTopWidgetElement())
+                    .moveToElement(Widget.getTopWidgetSizer())
+                    .clickAndHold()
+                    .moveByOffset(0, 100)
+                    .build()
+                    .perform();
+
+            // Check that placeholder exists
+            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath("//div[@class='placeholder-content']")).size(), 1);
+
+            new Actions(DriverManager.getDriver()).release().build().perform();
+        } finally {
+            MiscActions.changeImplicitWait(30);
+        }
+    }
 
     //Test method
-    public void moveBottomWidgetToTheTop(){
+    public void moveBottomWidgetToTheTop() {
+        while(Widget.getBottomWidgetYPos() > 0){
+            MiscActions.dragNDropByOffset(Widget.getBottomWidgetMover(), 0, -300);
+            MiscActions.waitPageToLoad();
+            MiscActions.scrollTo(Widget.getBottomWidgetElement());
+            MiscActions.waitPageToLoad();
+        }
+    }
 
+    //Test method
+    public void moveBottomWidgetToTheBottom() {
+        MiscActions.scrollTo(Widget.getBottomWidgetElement());
+        while(Widget.getBottomWidgetYPos() < 12){
+            new Actions(DriverManager.getDriver()).moveToElement(Widget.getBottomWidgetMover())
+                    .clickAndHold()
+                    .moveToElement(DriverManager.getDriver().findElement(By.id("pageFooter")))
+                    .release()
+                    .build()
+                    .perform();
+            MiscActions.waitPageToLoad();
+            MiscActions.scrollTo(Widget.getBottomWidgetElement());
+            MiscActions.waitPageToLoad();
+        }
     }
 }
