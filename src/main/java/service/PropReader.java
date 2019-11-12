@@ -9,7 +9,7 @@ public class PropReader {
 
     private String content;
 
-    public PropReader(String fileName) {
+    PropReader(String fileName) {
         try {
             URL res = PropReader.class.getClassLoader().getResource(fileName);
             File file = Paths.get(res.toURI()).toFile();
@@ -19,9 +19,9 @@ public class PropReader {
         }
     }
 
-    public String readProperty(String propertyName) {
+    String readProperty(String propertyName) {
         for (String line : content.split("\r\n")) {
-            if (line.trim().startsWith(propertyName)) {
+            if (line.split("=")[0].trim().equals(propertyName)) {
                 return line.split("=")[1];
             }
         }

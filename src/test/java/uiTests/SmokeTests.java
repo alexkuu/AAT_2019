@@ -4,12 +4,10 @@ import Pages.Home;
 import Pages.Login;
 import Pages.Settings;
 import dataProvider.SmokeDataProvider;
-import javafx.geometry.Pos;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import service.Config;
 import service.ui.DriverManager;
 import service.ui.MiscActions;
 import service.ui.Widget;
@@ -233,6 +231,7 @@ public class SmokeTests extends BaseTest {
         home.openDemoDashboard();
         MiscActions.waitPageToLoad();
         home.checkGreyZoneDuringMove();
+        home.decreaseDemoChartHeight();
         home.logout();
     }
 

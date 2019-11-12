@@ -11,6 +11,11 @@ public class Config {
     private static String browser;
     private static Frameworks framework;
 
+    // Grid
+    private static Boolean remoteRun;
+    private static String remoteHost;
+    private static String remotePort;
+
     // Widgets
     private static String topWidgetId;
     private static String bottomWidgetId;
@@ -77,5 +82,26 @@ public class Config {
             overallStatisticsWidgetId = loadProperty("widgets.overallstatistics.id");
         }
         return overallStatisticsWidgetId;
+    }
+
+    public static boolean isRemoteRun() {
+        if (remoteRun == null) {
+            remoteRun = loadProperty("remote").toLowerCase().equals("true");
+        }
+        return remoteRun;
+    }
+
+    public static String getRemoteHost() {
+        if (remoteHost == null) {
+            remoteHost = loadProperty("remote.host");
+        }
+        return remoteHost;
+    }
+
+    public static String getRemotePort() {
+        if (remotePort == null) {
+            remotePort = loadProperty("remote.port");
+        }
+        return remotePort;
     }
 }
