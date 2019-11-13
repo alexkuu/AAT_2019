@@ -11,10 +11,17 @@ public class Config {
     private static String browser;
     private static Frameworks framework;
 
-    // Grid
+    // Remote
     private static Boolean remoteRun;
-    private static String remoteHost;
-    private static String remotePort;
+    private static String remoteApp;
+
+    // Selenium grid
+    private static String gridHost;
+    private static String gridPort;
+
+    // Selenoid
+    private static String selenoidHost;
+    private static String selenoidPort;
 
     // Widgets
     private static String topWidgetId;
@@ -91,17 +98,38 @@ public class Config {
         return remoteRun;
     }
 
-    public static String getRemoteHost() {
-        if (remoteHost == null) {
-            remoteHost = loadProperty("remote.host");
+    public static String getRemoteApp() {
+        if (remoteApp == null) {
+            remoteApp = loadProperty("remote.app");
         }
-        return remoteHost;
+        return remoteApp;
     }
 
-    public static String getRemotePort() {
-        if (remotePort == null) {
-            remotePort = loadProperty("remote.port");
+    public static String getGridHost() {
+        if (gridHost == null) {
+            gridHost = loadProperty("grid.host");
         }
-        return remotePort;
+        return gridHost;
+    }
+
+    public static String getGridPort() {
+        if (gridPort == null) {
+            gridPort = loadProperty("grid.port");
+        }
+        return gridPort;
+    }
+
+    public static String getSelenoidHost() {
+        if (selenoidHost == null) {
+            selenoidHost = loadProperty("selenoid.host");
+        }
+        return selenoidHost;
+    }
+
+    public static String getGSelenoidPort() {
+        if (selenoidPort == null) {
+            selenoidPort = loadProperty("selenoid.port");
+        }
+        return selenoidPort;
     }
 }

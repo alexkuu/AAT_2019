@@ -65,8 +65,8 @@ public class HomePageSelenide implements HomePage {
 
     @Override
     public void openDemoDashboard() {
-        $(byXpath("//div[@class='dashboard-content'][div[@class='name-wrapper']/p[text()='DEMO DASHBOARD#demo']]")).shouldBe(Condition.visible).click();
-        $(byXpath("//ul[@class='main-breadcrumbs']//span[text()='DEMO DASHBOARD#demo']")).shouldBe(Condition.visible);
+        $(byXpath("//div[@class='dashboard-content'][div[@class='name-wrapper']/p[text()='DEMO DASHBOARD#_demo']]")).shouldBe(Condition.visible).click();
+        $(byXpath("//ul[@class='main-breadcrumbs']//span[text()='DEMO DASHBOARD#_demo']")).shouldBe(Condition.visible);
     }
 
     @Override

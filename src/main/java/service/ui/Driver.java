@@ -24,7 +24,7 @@ public class Driver {
     }
 
     private WebDriver Initialize() throws Exception {
-        return new WebDriverFactory().getInstance(Config.getBrowser());
+        return new WebDriverFactory().getInstance();
     }
 
     public WebDriver getDriver() {

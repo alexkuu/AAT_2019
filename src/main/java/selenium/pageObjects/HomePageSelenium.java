@@ -98,8 +98,8 @@ public class HomePageSelenium implements HomePage {
 
     @Override
     public void openDemoDashboard() {
-        MiscActions.waitUntilElementIsExists(By.xpath("//div[@class='dashboard-content'][div[@class='name-wrapper']/p[text()='DEMO DASHBOARD#demo']]")).click();
-        MiscActions.waitUntilElementIsExists(By.xpath("//ul[@class='main-breadcrumbs']//span[text()='DEMO DASHBOARD#demo']"));
+        MiscActions.waitUntilElementIsExists(By.xpath("//div[@class='dashboard-content'][div[@class='name-wrapper']/p[text()='DEMO DASHBOARD#_demo']]")).click();
+        MiscActions.waitUntilElementIsExists(By.xpath("//ul[@class='main-breadcrumbs']//span[text()='DEMO DASHBOARD#_demo']"));
     }
 
     @Override
