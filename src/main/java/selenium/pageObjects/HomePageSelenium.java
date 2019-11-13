@@ -1,6 +1,9 @@
 package selenium.pageObjects;
 
 import Interfaces.pageObjects.HomePage;
+import constants.Classes;
+import constants.Ids;
+import constants.Xpathes;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,32 +14,32 @@ import service.ui.Widget;
 
 public class HomePageSelenium implements HomePage {
 
-    @FindBy(how = How.CLASS_NAME, using = "dashboard-list-view-table")
-    public WebElement dashboardsList;
+    @FindBy(how = How.CLASS_NAME, using = Classes.DASHBOARD_LIST)
+    private WebElement dashboardsList;
 
-    @FindBy(how = How.ID, using = "profileImage")
-    public WebElement profileExpander;
+    @FindBy(how = How.ID, using = Ids.PROFILE_IMAGE)
+    private WebElement profileExpander;
 
-    @FindBy(how = How.XPATH, using = "//ul[@id='userNavigator']//span[contains(.,'Logout')]")
-    public WebElement logoutLink;
+    @FindBy(how = How.XPATH, using = Xpathes.LOGOUT_LINK)
+    private WebElement logoutLink;
 
-    @FindBy(how = How.XPATH, using = "//li[@id='settings']//i")
-    public WebElement settingsLink;
+    @FindBy(how = How.XPATH, using = Xpathes.SETTINGS_LINK)
+    private WebElement settingsLink;
 
-    @FindBy(how = How.CLASS_NAME, using = "logo")
-    public WebElement logo;
+    @FindBy(how = How.CLASS_NAME, using = Classes.LOGO)
+    private WebElement logo;
 
-    @FindBy(how = How.XPATH, using = "//span[text()='Add new dashboard']")
-    public WebElement addNewDashboardBtn;
+    @FindBy(how = How.XPATH, using = Xpathes.ADD_NEW_DASHBOARD)
+    private WebElement addNewDashboardBtn;
 
-    @FindBy(how = How.XPATH, using = "//input[@placeholder='Enter dashboard name']")
-    public WebElement newDashboardName;
+    @FindBy(how = How.XPATH, using = Xpathes.NEW_DASHBOARD_NAME)
+    private WebElement newDashboardName;
 
-    @FindBy(how = How.XPATH, using = "//div[@class='modal-footer']//button[contains(.,'Add')]")
-    public WebElement addBtn;
+    @FindBy(how = How.XPATH, using = Xpathes.NEW_DASHBOARD_SAVE_BUTTON)
+    private WebElement addBtn;
 
-    @FindBy(how = How.XPATH, using = "//button[contains(.,'Delete')]")
-    public WebElement confirmDeleteBtn;
+    @FindBy(how = How.XPATH, using = Xpathes.DASHBOARD_CONFIRM_DELETE_BTN)
+    private WebElement confirmDeleteBtn;
 
     public HomePageSelenium() {
     }
@@ -44,10 +47,10 @@ public class HomePageSelenium implements HomePage {
     @Override
     public void logout() {
         MiscActions.jsClick(profileExpander);
-        MiscActions.waitUntilElementIsExists(By.xpath("//ul[@id='userNavigator']//span[contains(.,'Logout')]"));
-        MiscActions.waitUntilClickable(By.xpath("//ul[@id='userNavigator']//span[contains(.,'Logout')]"));
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.LOGOUT_LINK));
+        MiscActions.waitUntilClickable(By.xpath(Xpathes.LOGOUT_LINK));
         MiscActions.jsClick(logoutLink);
-        MiscActions.waitUntilElementIsExists(By.xpath("//input[@placeholder='Login']"));
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.LOGIN_INPUT));
     }
 
     @Override
@@ -63,7 +66,7 @@ public class HomePageSelenium implements HomePage {
     @Override
     public void clickAddNewDashBoard() {
         addNewDashboardBtn.click();
-        MiscActions.waitUntilElementIsExists(By.xpath("//input[@placeholder='Enter dashboard name']"));
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.NEW_DASHBOARD_NAME));
     }
 
     @Override
@@ -79,16 +82,16 @@ public class HomePageSelenium implements HomePage {
 
     @Override
     public void deleteDashboard(String name) {
-        WebElement deleteBtn = DriverManager.getDriver().findElement(By.xpath("//p[text()='" + name + "']/following-sibling::div/i[text()='close']"));
+        WebElement deleteBtn = DriverManager.getDriver().findElement(By.xpath(Xpathes.DASHBOARD_DELETE_ICON(name)));
         MiscActions.jsClick(deleteBtn);
-        MiscActions.waitUntilElementIsExists(By.xpath("//button[contains(.,'Delete')]"));
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.DASHBOARD_CONFIRM_DELETE_BTN));
         confirmDeleteBtn.click();
-        MiscActions.waitUntilElementIsExists(By.xpath("//*[contains(.,'Dashboard has been deleted!')]"));
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.DASHBOARD_DELETED_MESSAGE));
     }
 
     @Override
     public boolean isDashboardDisplayed(String name) {
-        return DriverManager.getDriver().findElement(By.xpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).isDisplayed();
+        return DriverManager.getDriver().findElement(By.xpath(Xpathes.DASHBOARD_BY_NAME(name))).isDisplayed();
     }
 
     @Override
@@ -98,8 +101,8 @@ public class HomePageSelenium implements HomePage {
 
     @Override
     public void openDemoDashboard() {
-        MiscActions.waitUntilElementIsExists(By.xpath("//div[@class='dashboard-content'][div[@class='name-wrapper']/p[text()='DEMO DASHBOARD#_demo']]")).click();
-        MiscActions.waitUntilElementIsExists(By.xpath("//ul[@class='main-breadcrumbs']//span[text()='DEMO DASHBOARD#_demo']"));
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.DEMO_DASHBOARD)).click();
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.DEMO_DASHBOARD_NAME_IN_BREADCRUMB));
     }
 
     @Override

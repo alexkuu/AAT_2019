@@ -23,11 +23,6 @@ public class Config {
     private static String selenoidHost;
     private static String selenoidPort;
 
-    // Widgets
-    private static String topWidgetId;
-    private static String bottomWidgetId;
-    private static String overallStatisticsWidgetId;
-
     private static PropReader pReader = new PropReader(PROPERTY_FILE);
 
     private Config() {
@@ -68,27 +63,6 @@ public class Config {
             }
         }
         return framework;
-    }
-
-    public static String getTopWidgetId() {
-        if (topWidgetId == null) {
-            topWidgetId = loadProperty("widgets.top.id");
-        }
-        return topWidgetId;
-    }
-
-    public static String getBottomWidgetId() {
-        if (bottomWidgetId == null) {
-            bottomWidgetId = loadProperty("widgets.bottom.id");
-        }
-        return bottomWidgetId;
-    }
-
-    public static String getOverallStatisticsWidgetId() {
-        if (overallStatisticsWidgetId == null) {
-            overallStatisticsWidgetId = loadProperty("widgets.overallstatistics.id");
-        }
-        return overallStatisticsWidgetId;
     }
 
     public static boolean isRemoteRun() {

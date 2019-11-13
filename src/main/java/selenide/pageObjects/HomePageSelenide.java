@@ -2,6 +2,10 @@ package selenide.pageObjects;
 
 import Interfaces.pageObjects.HomePage;
 import com.codeborne.selenide.Condition;
+import constants.AppTexts;
+import constants.Classes;
+import constants.Ids;
+import constants.Xpathes;
 import org.openqa.selenium.By;
 import service.ui.MiscActions;
 import service.ui.Widget;
@@ -12,61 +16,61 @@ import static com.codeborne.selenide.Selenide.$;
 public class HomePageSelenide implements HomePage {
     @Override
     public void logout() {
-        $("#profileImage").click();
-        $(byText("Logout")).shouldBe(Condition.visible);
-        $(byText("Logout")).click();
-        $(byText("Login")).shouldBe(Condition.visible);
+        $(byId(Ids.PROFILE_IMAGE)).click();
+        $(byText(AppTexts.LOGOUT)).shouldBe(Condition.visible);
+        $(byText(AppTexts.LOGOUT)).click();
+        $(byText(AppTexts.LOGIN)).shouldBe(Condition.visible);
     }
 
     @Override
     public void clickLogo() {
-        $(".logo").click();
+        $(byClassName(Classes.LOGO)).click();
     }
 
     @Override
     public void openSettings() {
-        $(byText("settings")).click();
+        $(byText(AppTexts.SETTINGS)).click();
     }
 
     @Override
     public void clickAddNewDashBoard() {
-        $(byText("Add new dashboard")).click();
-        $(byAttribute("placeholder", "Enter dashboard name")).shouldBe(Condition.visible);
+        $(byText(AppTexts.ADD_NEW_DASHBOARD)).click();
+        $(byAttribute("placeholder", AppTexts.ENTER_DASHBOARD_NAME)).shouldBe(Condition.visible);
     }
 
     @Override
     public void inputNewDashboardName(String name) {
-        $(byAttribute("placeholder", "Enter dashboard name")).sendKeys(name);
+        $(byAttribute("placeholder", AppTexts.ENTER_DASHBOARD_NAME)).sendKeys(name);
     }
 
     @Override
     public void clickAddDashBoard() {
-        $(byXpath("//div[@class='modal-footer']//button[contains(.,'Add')]")).click();
-        $(byText("Dashboard has been added")).waitUntil(Condition.visible, 10000);
+        $(byXpath(Xpathes.NEW_DASHBOARD_SAVE_BUTTON)).click();
+        $(byText(AppTexts.DASHBOARD_ADDED)).waitUntil(Condition.visible, 10000);
     }
 
     @Override
     public void deleteDashboard(String name) {
-        $(byXpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).hover();
-        $(byXpath("//div[@class='dashboard-container']//p[text()='" + name + "']/following-sibling::div/i[text()='close']")).click();
-        $(byText("Delete")).shouldBe(Condition.visible).click();
-        $(byText("Dashboard has been deleted!")).shouldBe(Condition.visible);
+        $(byXpath(Xpathes.DASHBOARD_BY_NAME(name))).hover();
+        $(byXpath(Xpathes.DASHBOARD_DELETE_ICON(name))).click();
+        $(byText(AppTexts.DELETE)).shouldBe(Condition.visible).click();
+        $(byText(AppTexts.DASHBOARD_DELETED)).shouldBe(Condition.visible);
     }
 
     @Override
     public boolean isDashboardDisplayed(String name) {
-        return $(byXpath("//div[@class='dashboard-container']//p[text()='" + name + "']")).isDisplayed();
+        return $(byXpath(Xpathes.DASHBOARD_BY_NAME(name))).isDisplayed();
     }
 
     @Override
     public boolean isDashBoardListDisplayed() {
-        return $(".dashboard-list-view-table").isDisplayed();
+        return $(byClassName(Classes.DASHBOARD_LIST)).isDisplayed();
     }
 
     @Override
     public void openDemoDashboard() {
-        $(byXpath("//div[@class='dashboard-content'][div[@class='name-wrapper']/p[text()='DEMO DASHBOARD#_demo']]")).shouldBe(Condition.visible).click();
-        $(byXpath("//ul[@class='main-breadcrumbs']//span[text()='DEMO DASHBOARD#_demo']")).shouldBe(Condition.visible);
+        $(byXpath(Xpathes.DEMO_DASHBOARD)).shouldBe(Condition.visible).click();
+        $(byXpath(Xpathes.DEMO_DASHBOARD_NAME_IN_BREADCRUMB)).shouldBe(Condition.visible);
     }
 
     @Override

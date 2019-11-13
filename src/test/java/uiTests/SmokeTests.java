@@ -1,28 +1,30 @@
 package uiTests;
 
+import Enums.Users;
 import Pages.Home;
 import Pages.Login;
 import Pages.Settings;
+import constants.Xpathes;
 import dataProvider.SmokeDataProvider;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import service.ui.DriverManager;
-import service.ui.MiscActions;
 import service.ui.Widget;
 
 import static service.UserFactory.getUser;
+import static service.assertions.Assertion.*;
+import static service.ui.MiscActions.*;
 
 public class SmokeTests extends BaseTest {
 
     @Test(dataProvider = "users", dataProviderClass = SmokeDataProvider.class)
-    public void loginSuccess(String userRole) {
+    public void loginSuccess(Users user) {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login(userRole);
-        Assert.assertTrue(home.isDashBoardsListDisplayed());
+        login.login(user);
+        assertTrue(home.isDashBoardsListDisplayed());
         home.logout();
     }
 
@@ -30,8 +32,8 @@ public class SmokeTests extends BaseTest {
     public void loginFailed() {
         Login login = new Login();
         login.openHomePage();
-        login.login(getUser("user").getName(), "wronG_PassW0RD");
-        Assert.assertTrue(login.isErrorMessageDisplayed());
+        login.login(getUser(Users.USER.toString().toLowerCase()).getName(), "wronG_PassW0RD");
+        assertTrue(login.isErrorMessageDisplayed());
     }
 
     @Test
@@ -39,9 +41,9 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openSettings();
-        Assert.assertTrue(new Settings().isSettingsPageDisplayed());
+        assertTrue(new Settings().isSettingsPageDisplayed());
         home.clickLogo();
         home.logout();
     }
@@ -52,9 +54,9 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.addNewDashBoard(dashBoardName);
-        Assert.assertTrue(home.isDashBoardDisplayed(dashBoardName));
+        assertTrue(home.isDashBoardDisplayed(dashBoardName));
         home.deleteDashBoard(dashBoardName);
         home.logout();
     }
@@ -64,13 +66,13 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
-        Assert.assertTrue(home.demoChartOnTheLeftSide());
+        assertTrue(home.demoChartOnTheLeftSide());
         home.dragNDropDemoChartByOffset(700, 0);
-        Assert.assertTrue(home.demoChartOnTheRightSide());
+        assertTrue(home.demoChartOnTheRightSide());
         home.dragNDropDemoChartByOffset(-700, 0);
-        Assert.assertTrue(home.demoChartOnTheLeftSide());
+        assertTrue(home.demoChartOnTheLeftSide());
         home.logout();
     }
 
@@ -79,13 +81,13 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
         int initialHeight = home.getDemoChartHeight();
         home.increaseDemoChartHeight();
-        Assert.assertEquals(home.getDemoChartHeight(), initialHeight + 1);
+        assertEquals(home.getDemoChartHeight(), initialHeight + 1);
         home.decreaseDemoChartHeight();
-        Assert.assertEquals(home.getDemoChartHeight(), initialHeight);
+        assertEquals(home.getDemoChartHeight(), initialHeight);
         home.logout();
     }
 
@@ -94,17 +96,17 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
         int initialHeight = home.getDemoChartHeight();
         home.increaseDemoChartHeight();
         home.clickLogo();
         home.openDemoDashboard();
-        Assert.assertEquals(home.getDemoChartHeight(), initialHeight + 1);
+        assertEquals(home.getDemoChartHeight(), initialHeight + 1);
         home.decreaseDemoChartHeight();
         home.clickLogo();
         home.openDemoDashboard();
-        Assert.assertEquals(home.getDemoChartHeight(), initialHeight);
+        assertEquals(home.getDemoChartHeight(), initialHeight);
         home.logout();
     }
 
@@ -113,14 +115,13 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
-        WebElement bottomWidget = DriverManager.getDriver().findElement(By.xpath("//div[@data-id='5dc938fb9daec200016cdbb0']"));
-        int bottomWidgetStartYPos = Integer.valueOf(bottomWidget.getAttribute("data-gs-y"));
+        int bottomWidgetStartYPos = Widget.getBottomWidgetYPos();
         home.increaseDemoChartHeight();
-        Assert.assertEquals((int) Integer.valueOf(bottomWidget.getAttribute("data-gs-y")), bottomWidgetStartYPos + 1);
+        assertEquals(Widget.getBottomWidgetYPos(), bottomWidgetStartYPos + 1);
         home.decreaseDemoChartHeight();
-        Assert.assertEquals((int) Integer.valueOf(bottomWidget.getAttribute("data-gs-y")), bottomWidgetStartYPos);
+        assertNotEquals(Widget.getBottomWidgetYPos(), bottomWidgetStartYPos);
         home.logout();
     }
 
@@ -129,12 +130,12 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
         home.increaseDemoChartWidth(700);
         int width = home.getDemoChartWidth();
         home.increaseDemoChartWidth(100);
-        Assert.assertEquals(width, home.getDemoChartWidth());
+        assertEquals(width, home.getDemoChartWidth());
         home.increaseDemoChartWidth(-700);
         home.logout();
     }
@@ -144,13 +145,13 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
-        WebElement svg = DriverManager.getDriver().findElement(By.xpath(Widget.getTopWidgetMainXpath() + "//*[local-name() = 'svg']"));
+        WebElement svg = getByXpath(Widget.getTopWidgetMainXpath() + Xpathes.SVG_TAG);
         double initWidth = Double.valueOf(svg.getAttribute("width"));
         home.increaseDemoChartWidth(700);
         try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
-        Assert.assertTrue(Double.valueOf(svg.getAttribute("width")) > initWidth);
+        assertTrue(Double.valueOf(svg.getAttribute("width")) > initWidth);
         home.increaseDemoChartWidth(-700);
         home.logout();
     }
@@ -160,7 +161,7 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
         home.checkGreyZoneDuringResize();
         home.logout();
@@ -169,10 +170,10 @@ public class SmokeTests extends BaseTest {
     @Test
     public void shouldFailWithScreenshot() throws Exception {
         Login login = new Login();
-        Home home = new Home();
         login.openHomePage();
-        login.login("user");
-        throw new Exception("Explicit fail");
+        login.login(Users.USER);
+        Thread.sleep(4000);
+        assertTrue(false);
     }
 
     @Test
@@ -182,17 +183,17 @@ public class SmokeTests extends BaseTest {
         login.openHomePage();
         login.login("user");
         home.openDemoDashboard();
-        MiscActions.waitPageToLoad();
-        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
-        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getTopWidgetElement()));
-        MiscActions.scrollTo(Widget.getBottomWidgetElement());
-        MiscActions.waitPageToLoad();
-        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
-        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getTopWidgetElement()));
-        MiscActions.scrollTo(Widget.getTopWidgetElement());
-        MiscActions.waitPageToLoad();
-        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
-        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getTopWidgetElement()));
+        waitPageToLoad();
+        assertNotVisible(Widget.getBottomWidgetMainXpath());
+        assertVisible(Widget.getTopWidgetMainXpath());
+        scrollTo(Widget.getBottomWidgetElement());
+        waitPageToLoad();
+        assertVisible(Widget.getBottomWidgetMainXpath());
+        assertNotVisible(Widget.getTopWidgetMainXpath());
+        scrollTo(Widget.getTopWidgetElement());
+        waitPageToLoad();
+        assertNotVisible(Widget.getBottomWidgetMainXpath());
+        assertVisible(Widget.getTopWidgetMainXpath());
         home.logout();
     }
 
@@ -203,22 +204,22 @@ public class SmokeTests extends BaseTest {
         login.openHomePage();
         login.login("user");
         home.openDemoDashboard();
-        MiscActions.waitPageToLoad();
-        Assert.assertEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
-        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
-        MiscActions.scrollTo(Widget.getBottomWidgetElement());
-        MiscActions.waitPageToLoad();
-        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        waitPageToLoad();
+        assertEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
+        assertNotVisible(Widget.getBottomWidgetMainXpath());
+        scrollTo(Widget.getBottomWidgetElement());
+        waitPageToLoad();
+        assertVisible(Widget.getBottomWidgetMainXpath());
         home.moveBottomWidgetToTheTop();
         home.clickLogo();
         home.openDemoDashboard();
-        Assert.assertNotEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
-        Assert.assertTrue(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        assertNotEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
+        assertVisible(Widget.getBottomWidgetMainXpath());
         home.moveBottomWidgetToTheBottom();
         home.clickLogo();
         home.openDemoDashboard();
-        Assert.assertEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
-        Assert.assertFalse(MiscActions.elementIsOnView(Widget.getBottomWidgetElement()));
+        assertEquals(Widget.getTopWidgetYPos(), 0); // Verify other widgets moves as well
+        assertNotVisible(Widget.getBottomWidgetMainXpath());
         home.logout();
     }
 
@@ -229,7 +230,7 @@ public class SmokeTests extends BaseTest {
         login.openHomePage();
         login.login("user");
         home.openDemoDashboard();
-        MiscActions.waitPageToLoad();
+        waitPageToLoad();
         home.checkGreyZoneDuringMove();
         home.decreaseDemoChartHeight();
         home.logout();
@@ -240,15 +241,18 @@ public class SmokeTests extends BaseTest {
         Login login = new Login();
         Home home = new Home();
         login.openHomePage();
-        login.login("user");
+        login.login(Users.USER);
         home.openDemoDashboard();
-        MiscActions.waitPageToLoad();
-        MiscActions.scrollTo(Widget.getOverallStatisticsWidgetElement());
-        MiscActions.waitPageToLoad();
-        String initRightPartTopPosition = DriverManager.getDriver().findElement(By.xpath(Widget.getOSRightPartScrollerXpath())).getCssValue("top");
-        MiscActions.hoverElement1DragElement2(By.xpath(Widget.getOSLeftPartXpath()), By.xpath(Widget.getOSLeftPartScrollerXpath()), 0, 50);
-        String currentRightPartTopPosition = DriverManager.getDriver().findElement(By.xpath(Widget.getOSRightPartScrollerXpath())).getCssValue("top");
-        Assert.assertEquals(initRightPartTopPosition, currentRightPartTopPosition);
+        waitPageToLoad();
+        scrollTo(Widget.getOverallStatisticsWidgetElement());
+        waitPageToLoad();
+        String initRightPartTopPosition = getCssValue(By.xpath(Widget.getOSRightPartScrollerXpath()), "top");
+        String initLeftPartTopPosition = getCssValue(By.xpath(Widget.getOSLeftPartScrollerXpath()), "top");
+        hoverElement1DragElement2(By.xpath(Widget.getOSLeftPartXpath()), By.xpath(Widget.getOSLeftPartScrollerXpath()), 0, 50);
+        String currentRightPartTopPosition = getCssValue(By.xpath(Widget.getOSRightPartScrollerXpath()), "top");
+        String currentLeftPartTopPosition = getCssValue(By.xpath(Widget.getOSLeftPartScrollerXpath()), "top");
+        assertEquals(initRightPartTopPosition, currentRightPartTopPosition);
+        assertNotEquals(initLeftPartTopPosition, currentLeftPartTopPosition);
         home.logout();
     }
 }

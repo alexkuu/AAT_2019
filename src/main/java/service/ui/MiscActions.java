@@ -45,7 +45,8 @@ public class MiscActions {
     }
 
     public static void hoverElement1DragElement2(WebElement e1, WebElement e2, int x, int y) {
-        new Actions(DriverManager.getDriver()).moveToElement(e1)
+        new Actions(DriverManager.getDriver())
+                .moveToElement(e1)
                 .moveToElement(e2)
                 .clickAndHold()
                 .moveByOffset(x, y)
@@ -59,7 +60,8 @@ public class MiscActions {
     }
 
     public static void dragNDropByOffset(WebElement element, int x, int y) {
-        new Actions(DriverManager.getDriver()).moveToElement(element)
+        new Actions(DriverManager.getDriver())
+                .moveToElement(element)
                 .clickAndHold()
                 .moveByOffset(x, y)
                 .release()
@@ -82,7 +84,6 @@ public class MiscActions {
 
     public static boolean elementIsOnView(WebElement element) {
         Point elementCoordinates = element.getLocation();
-        DriverManager.getDriver().manage().window().getSize();
         int x = elementCoordinates.getX();
         int y = elementCoordinates.getY();
 
@@ -93,11 +94,12 @@ public class MiscActions {
     }
 
     public static void waitPageToLoad() {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), 60);
         JavascriptExecutor executor = (JavascriptExecutor) DriverManager.getDriver();
         // wait for Javascript to load
-        ExpectedCondition<Boolean> jsLoad = driver -> executor.executeScript("return document.readyState")
-                .toString().equals("complete");
+        ExpectedCondition<Boolean> jsLoad = driver -> {
+            return executor.executeScript("return document.readyState")
+                    .toString().equals("complete");
+        };
     }
 
     public static void changeImplicitWait(int seconds) {
@@ -106,5 +108,13 @@ public class MiscActions {
 
     public static void scrollToTheBottom(){
         DriverManager.getDriver().findElement(By.tagName("body")).sendKeys(Keys.END);
+    }
+
+    public static String getCssValue(By by, String attr){
+        return DriverManager.getDriver().findElement(by).getCssValue(attr);
+    }
+
+    public static WebElement getByXpath(String xpath){
+        return DriverManager.getDriver().findElement(By.xpath(xpath));
     }
 }

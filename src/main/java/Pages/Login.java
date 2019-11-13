@@ -1,5 +1,6 @@
 package Pages;
 
+import Enums.Users;
 import Interfaces.pageObjects.LoginPage;
 import PageObjects.Pages;
 import service.User;
@@ -32,6 +33,10 @@ public class Login extends BasePage {
 
     public void login(User user) {
         login(user.getName(), user.getPassword());
+    }
+
+    public void login(Users user) {
+        login(user.toString().toLowerCase());
     }
 
     public void login(String role) {

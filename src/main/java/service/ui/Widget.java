@@ -1,8 +1,8 @@
 package service.ui;
 
+import constants.AppContstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import service.Config;
 
 public class Widget {
 
@@ -14,11 +14,6 @@ public class Widget {
     private static String widgetLeftPartScroller = widgetLeftPart + "//div[@class='baron__bar baron__bar-vertical']";
     private static String widgetRightPart = widgetMain + "//div[@class='right-widget-wrapper widget-wrapper']";
     private static String widgetRightPartScroller = widgetRightPart + "//div[@class='baron__bar baron__bar-vertical']";
-
-    // Widgets ids
-    private static String topWidgetId = Config.getTopWidgetId();
-    private static String bottomWidgetId = Config.getBottomWidgetId();
-    private static String overallStatisticsWidgetId = Config.getOverallStatisticsWidgetId();
 
     public static WebElement getTopWidgetElement() {
         return DriverManager.getDriver().findElement(By.xpath(getTopWidgetMainXpath()));
@@ -74,47 +69,47 @@ public class Widget {
 
     // Get xpaths
     public static String getTopWidgetMainXpath(){
-        return widgetMain.replace("<id>", topWidgetId);
+        return widgetMain.replace("<id>", AppContstants.WIDGET_TOP_ID);
     }
 
     public static String getTopWidgetResizerXpath(){
-        return widgetResizer.replace("<id>", topWidgetId);
+        return widgetResizer.replace("<id>", AppContstants.WIDGET_TOP_ID);
     }
 
     public static String getTopWidgetMoverXpath(){
-        return widgetMover.replace("<id>", topWidgetId);
+        return widgetMover.replace("<id>", AppContstants.WIDGET_TOP_ID);
     }
 
     public static String getBottomWidgetMainXpath(){
-        return widgetMain.replace("<id>", bottomWidgetId);
+        return widgetMain.replace("<id>", AppContstants.WIDGET_BOTTOM_ID);
     }
 
     public static String getOverallStatisticsWidgetMainXpath(){
-        return widgetMain.replace("<id>", overallStatisticsWidgetId);
+        return widgetMain.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
     public static String getBottomWidgetResizerXpath(){
-        return widgetResizer.replace("<id>", bottomWidgetId);
+        return widgetResizer.replace("<id>", AppContstants.WIDGET_BOTTOM_ID);
     }
 
     public static String getBottomWidgetMoverXpath(){
-        return widgetMover.replace("<id>", bottomWidgetId);
+        return widgetMover.replace("<id>", AppContstants.WIDGET_BOTTOM_ID);
     }
 
     public static String getOSLeftPartXpath(){
-        return widgetLeftPart.replace("<id>", overallStatisticsWidgetId);
+        return widgetLeftPart.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
     public static String getOSRightPartXpath(){
-        return widgetRightPart.replace("<id>", overallStatisticsWidgetId);
+        return widgetRightPart.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
     public static String getOSLeftPartScrollerXpath(){
-        return widgetLeftPartScroller.replace("<id>", overallStatisticsWidgetId);
+        return widgetLeftPartScroller.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
     public static String getOSRightPartScrollerXpath(){
-        return widgetRightPartScroller.replace("<id>", overallStatisticsWidgetId);
+        return widgetRightPartScroller.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
 }

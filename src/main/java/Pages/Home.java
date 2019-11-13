@@ -2,6 +2,8 @@ package Pages;
 
 import Interfaces.pageObjects.HomePage;
 import PageObjects.Pages;
+import constants.Ids;
+import constants.Xpathes;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
@@ -102,7 +104,7 @@ public class Home extends BasePage {
             MiscActions.changeImplicitWait(3);
 
             // First check that placeholder not exists
-            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath("placeholder-content")).size(), 0);
+            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath(Xpathes.GRAY_SQUARE_PROPOSAL)).size(), 0);
             MiscActions.changeImplicitWait(30);
 
             new Actions(DriverManager.getDriver()).moveToElement(Widget.getTopWidgetElement())
@@ -113,7 +115,7 @@ public class Home extends BasePage {
                     .perform();
 
             // Check that placeholder exists
-            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath("//div[@class='placeholder-content']")).size(), 1);
+            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath(Xpathes.GRAY_SQUARE_PROPOSAL)).size(), 1);
 
             new Actions(DriverManager.getDriver()).release().build().perform();
         } finally {
@@ -126,7 +128,7 @@ public class Home extends BasePage {
             MiscActions.changeImplicitWait(3);
 
             // First check that placeholder not exists
-            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath("placeholder-content")).size(), 0);
+            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath(Xpathes.GRAY_SQUARE_PROPOSAL)).size(), 0);
             MiscActions.changeImplicitWait(30);
 
             new Actions(DriverManager.getDriver()).moveToElement(Widget.getTopWidgetElement())
@@ -137,7 +139,7 @@ public class Home extends BasePage {
                     .perform();
 
             // Check that placeholder exists
-            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath("//div[@class='placeholder-content']")).size(), 1);
+            Assert.assertEquals(DriverManager.getDriver().findElements(By.xpath(Xpathes.GRAY_SQUARE_PROPOSAL)).size(), 1);
 
             new Actions(DriverManager.getDriver()).release().build().perform();
         } finally {
@@ -161,7 +163,7 @@ public class Home extends BasePage {
         while(Widget.getBottomWidgetYPos() < 12){
             new Actions(DriverManager.getDriver()).moveToElement(Widget.getBottomWidgetMover())
                     .clickAndHold()
-                    .moveToElement(DriverManager.getDriver().findElement(By.id("pageFooter")))
+                    .moveToElement(DriverManager.getDriver().findElement(By.id(Ids.PAGE_FOOTER)))
                     .release()
                     .build()
                     .perform();

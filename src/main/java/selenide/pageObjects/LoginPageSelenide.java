@@ -2,6 +2,7 @@ package selenide.pageObjects;
 
 import Interfaces.pageObjects.LoginPage;
 import com.codeborne.selenide.WebDriverRunner;
+import constants.AppTexts;
 import service.Config;
 import service.ui.DriverManager;
 
@@ -23,21 +24,21 @@ public class LoginPageSelenide implements LoginPage {
 
     @Override
     public void inputUserName(String name) {
-        $(byAttribute("placeholder", "Login")).setValue(name);
+        $(byAttribute("placeholder", AppTexts.LOGIN)).setValue(name);
     }
 
     @Override
     public void inputPassword(String password) {
-        $(byAttribute("placeholder", "Password")).setValue(password);
+        $(byAttribute("placeholder", AppTexts.PASSWORD)).setValue(password);
     }
 
     @Override
     public void submitLogin() {
-        $(byText("Login")).click();
+        $(byText(AppTexts.LOGIN)).click();
     }
 
     @Override
     public boolean loginErrorDisplayed() {
-        return $(byText("An error occurred while connecting to server : You do not have enough permissions. Bad credentials")).isDisplayed();
+        return $(byText(AppTexts.LOGIN_ERROR_MESSAGE)).isDisplayed();
     }
 }

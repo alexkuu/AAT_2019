@@ -1,6 +1,7 @@
 package selenium.pageObjects;
 
 import Interfaces.pageObjects.LoginPage;
+import constants.Xpathes;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -9,16 +10,16 @@ import service.ui.DriverManager;
 public class LoginPageSelenium implements LoginPage {
 
 
-    @FindBy(how = How.XPATH, using = "//input[@placeholder='Login']")
+    @FindBy(how = How.XPATH, using = Xpathes.LOGIN_INPUT)
     private WebElement usernameField;
 
-    @FindBy(how = How.XPATH, using = "//input[@placeholder='Password']")
+    @FindBy(how = How.XPATH, using = Xpathes.PASSWORD_INPUT)
     private WebElement passwordField;
 
-    @FindBy(how = How.XPATH, using = "//button[contains(.,'Login')]")
+    @FindBy(how = How.XPATH, using = Xpathes.LOGIN_BUTTON)
     private WebElement loginBtn;
 
-    @FindBy(how = How.XPATH, using = "//div[contains(.,'An error occurred while connecting to server : You do not have enough permissions. Bad credentials')]")
+    @FindBy(how = How.XPATH, using = Xpathes.LOGIN_ERROR_MESSAGE)
     private WebElement loginError;
 
     public LoginPageSelenium(){
