@@ -9,7 +9,6 @@ import dataProvider.SmokeDataProvider;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import service.ui.DriverManager;
 import service.ui.Widget;
 
 import static service.UserFactory.getUser;
