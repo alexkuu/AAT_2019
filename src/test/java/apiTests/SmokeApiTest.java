@@ -15,7 +15,6 @@ public class SmokeApiTest {
     @Test
     public static void createModifyRemoveUser() {
         ApiClient api = new ApiClient(Users.ADMIN);
-        api.getCookies();
         String userName = "test_user_" + genRandomString();
 
         // Create user
