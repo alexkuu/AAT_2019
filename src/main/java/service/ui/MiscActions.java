@@ -106,15 +106,27 @@ public class MiscActions {
         DriverManager.getDriver().manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
-    public static void scrollToTheBottom(){
+    public static void scrollToTheBottom() {
         DriverManager.getDriver().findElement(By.tagName("body")).sendKeys(Keys.END);
     }
 
-    public static String getCssValue(By by, String attr){
+    public static String getCssValue(By by, String attr) {
         return DriverManager.getDriver().findElement(by).getCssValue(attr);
     }
 
-    public static WebElement getByXpath(String xpath){
+    public static WebElement getByXpath(String xpath) {
         return DriverManager.getDriver().findElement(By.xpath(xpath));
+    }
+
+    public static void addAuthToken(String authToken) {
+        String newToken = "bearer " + authToken;
+        boolean tokenUpdated = false;
+        while (!tokenUpdated) {
+            JavascriptExecutor executor = (JavascriptExecutor) DriverManager.getDriver();
+            executor.executeScript(String.format("window.localStorage.setItem('%s','%s');", "session_token", newToken));
+            String currToken = executor.executeScript(String.format("return window.localStorage.getItem('%s');", "session_token")).toString();
+            System.out.println("New token: " + newToken + "\nCur token: " + currToken + "\n");
+            tokenUpdated = currToken.equals(newToken);
+        }
     }
 }

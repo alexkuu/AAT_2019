@@ -20,5 +20,6 @@ public interface HomePage {
     int getDemoChartHeight();
     int getDemoChartWidth();
     void increaseDemoChartWidth(int x);
+    void openDashboard(String name);
 
 }

@@ -23,6 +23,10 @@ public class Config {
     private static String selenoidHost;
     private static String selenoidPort;
 
+    // API
+    private static String apiClient;
+    private static Boolean useProxy;
+
     private static PropReader pReader = new PropReader(PROPERTY_FILE);
 
     private Config() {
@@ -105,5 +109,19 @@ public class Config {
             selenoidPort = loadProperty("selenoid.port");
         }
         return selenoidPort;
+    }
+
+    public static String getApiClient() {
+        if (apiClient == null) {
+            apiClient = loadProperty("api.client");
+        }
+        return apiClient;
+    }
+
+    public static boolean getUseProxy() {
+        if (useProxy == null) {
+            useProxy = loadProperty("api.use.proxy").toLowerCase().equals("true");
+        }
+        return useProxy;
     }
 }

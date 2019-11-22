@@ -15,7 +15,7 @@ public class Driver {
     public Driver() {
         logger.info("Driver initialization");
         try {
-            this.webDriver =  Initialize();
+            this.webDriver = Initialize();
             webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
             webDriver.manage().window().maximize();
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class Driver {
 
     public void goTo(String url) {
         webDriver.get(baseUrl + url);
-        logger.info("Open " + url);
+        logger.info("Open " + baseUrl + url);
     }
 
     public void close() {

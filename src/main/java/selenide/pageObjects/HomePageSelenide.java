@@ -74,6 +74,12 @@ public class HomePageSelenide implements HomePage {
     }
 
     @Override
+    public void openDashboard(String name) {
+        $(byXpath(Xpathes.DASHBOARD_BY_NAME_FOR_OPEN(name))).shouldBe(Condition.visible).click();
+        $(byXpath(Xpathes.DASHBOARD_IN_BREADCRUMB(name))).shouldBe(Condition.visible);
+    }
+
+    @Override
     public void dragNDropDemoChartByOffset(int x, int y) {
         MiscActions.dragNDropByOffset(By.xpath(Widget.getTopWidgetMoverXpath()), x, y);
     }
@@ -114,5 +120,4 @@ public class HomePageSelenide implements HomePage {
     public void increaseDemoChartWidth(int x) {
         MiscActions.hoverElement1DragElement2(By.xpath(Widget.getTopWidgetMainXpath()), By.xpath(Widget.getTopWidgetResizerXpath()), x, 0);
     }
-
 }

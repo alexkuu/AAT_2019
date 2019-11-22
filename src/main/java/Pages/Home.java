@@ -66,6 +66,10 @@ public class Home extends BasePage {
         obj.openDemoDashboard();
     }
 
+    public void openDashboard(String name) {
+        obj.openDashboard(name);
+    }
+
     public void dragNDropDemoChartByOffset(int x, int y) {
         obj.dragNDropDemoChartByOffset(x, y);
     }

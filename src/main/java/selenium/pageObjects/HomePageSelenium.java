@@ -106,6 +106,12 @@ public class HomePageSelenium implements HomePage {
     }
 
     @Override
+    public void openDashboard(String name) {
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.DASHBOARD_BY_NAME_FOR_OPEN(name))).click();
+        MiscActions.waitUntilElementIsExists(By.xpath(Xpathes.DASHBOARD_IN_BREADCRUMB(name)));
+    }
+
+    @Override
     public void dragNDropDemoChartByOffset(int x, int y) {
         MiscActions.dragNDropByOffset(Widget.getTopWidgetMover(), x, y);
     }

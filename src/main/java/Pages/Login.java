@@ -4,12 +4,15 @@ import Enums.Users;
 import Interfaces.pageObjects.LoginPage;
 import PageObjects.Pages;
 import service.User;
+import service.api.ApiClient;
+import service.ui.MiscActions;
 
 import static service.UserFactory.getUser;
 
 public class Login extends BasePage {
 
     private LoginPage obj;
+    ApiClient api;
 
     public Login() {
         obj = new Pages().getLoginPage();
@@ -17,6 +20,7 @@ public class Login extends BasePage {
 
     public void openHomePage() {
         obj.openHomePage();
+        MiscActions.waitPageToLoad();
     }
 
     public void typeUser(String username) {
@@ -48,6 +52,31 @@ public class Login extends BasePage {
         typePassword(password);
         submitLogin();
         logger.info("Login as:  " + username);
+    }
+
+    public ApiClient loginWithApi(Users role) {
+        openHomePage();
+        api = new ApiClient(role);
+        String authToken = api.getToken();
+        MiscActions.addAuthToken(authToken);
+        openHomePage();
+        return api;
+    }
+
+    public ApiClient loginWithApi(ApiClient apiClient) {
+        openHomePage();
+        String authToken = apiClient.getToken();
+        MiscActions.addAuthToken(authToken);
+        openHomePage();
+        return apiClient;
+    }
+
+    public void logoutWithApi() {
+        api.user.logout();
+    }
+
+    public void logoutWithApi(ApiClient apiClient) {
+        apiClient.user.logout();
     }
 
     public boolean isErrorMessageDisplayed() {

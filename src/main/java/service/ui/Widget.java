@@ -15,6 +15,10 @@ public class Widget {
     private static String widgetRightPart = widgetMain + "//div[@class='right-widget-wrapper widget-wrapper']";
     private static String widgetRightPartScroller = widgetRightPart + "//div[@class='baron__bar baron__bar-vertical']";
 
+    public static boolean widgetExistByName(String name) {
+        return DriverManager.getDriver().findElements(By.xpath("//div[@class='info-block']/h2[text()='" + name + "']")).size() > 0;
+    }
+
     public static WebElement getTopWidgetElement() {
         return DriverManager.getDriver().findElement(By.xpath(getTopWidgetMainXpath()));
     }
@@ -68,47 +72,47 @@ public class Widget {
     }
 
     // Get xpaths
-    public static String getTopWidgetMainXpath(){
+    public static String getTopWidgetMainXpath() {
         return widgetMain.replace("<id>", AppContstants.WIDGET_TOP_ID);
     }
 
-    public static String getTopWidgetResizerXpath(){
+    public static String getTopWidgetResizerXpath() {
         return widgetResizer.replace("<id>", AppContstants.WIDGET_TOP_ID);
     }
 
-    public static String getTopWidgetMoverXpath(){
+    public static String getTopWidgetMoverXpath() {
         return widgetMover.replace("<id>", AppContstants.WIDGET_TOP_ID);
     }
 
-    public static String getBottomWidgetMainXpath(){
+    public static String getBottomWidgetMainXpath() {
         return widgetMain.replace("<id>", AppContstants.WIDGET_BOTTOM_ID);
     }
 
-    public static String getOverallStatisticsWidgetMainXpath(){
+    public static String getOverallStatisticsWidgetMainXpath() {
         return widgetMain.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
-    public static String getBottomWidgetResizerXpath(){
+    public static String getBottomWidgetResizerXpath() {
         return widgetResizer.replace("<id>", AppContstants.WIDGET_BOTTOM_ID);
     }
 
-    public static String getBottomWidgetMoverXpath(){
+    public static String getBottomWidgetMoverXpath() {
         return widgetMover.replace("<id>", AppContstants.WIDGET_BOTTOM_ID);
     }
 
-    public static String getOSLeftPartXpath(){
+    public static String getOSLeftPartXpath() {
         return widgetLeftPart.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
-    public static String getOSRightPartXpath(){
+    public static String getOSRightPartXpath() {
         return widgetRightPart.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
-    public static String getOSLeftPartScrollerXpath(){
+    public static String getOSLeftPartScrollerXpath() {
         return widgetLeftPartScroller.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 
-    public static String getOSRightPartScrollerXpath(){
+    public static String getOSRightPartScrollerXpath() {
         return widgetRightPartScroller.replace("<id>", AppContstants.WIDGET_OVERALLSTATISTICS_ID);
     }
 

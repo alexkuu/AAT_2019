@@ -7,6 +7,7 @@ public class UserFactory {
     private static PropReader pReader = new PropReader(USERS_FILE);
 
     public static User getUser(String role) {
+        role = role.toLowerCase();
         if (getUserAttribute(role, true) == null) {
             throw new InvalidKeyException("User with role [" + role + "] not found.");
         }
