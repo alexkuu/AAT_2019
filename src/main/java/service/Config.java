@@ -27,6 +27,13 @@ public class Config {
     private static String apiClient;
     private static Boolean useProxy;
 
+    // Integration
+    private static String slackWebHook;
+    private static String testRailUrl;
+    private static String testRailUsername;
+    private static String testRailPassword;
+    private static String saucelabsUrl;
+
     private static PropReader pReader = new PropReader(PROPERTY_FILE);
 
     private Config() {
@@ -123,5 +130,40 @@ public class Config {
             useProxy = loadProperty("api.use.proxy").toLowerCase().equals("true");
         }
         return useProxy;
+    }
+
+    public static String getSlackWebHook() {
+        if (slackWebHook == null) {
+            slackWebHook = loadProperty("slack.webhook");
+        }
+        return slackWebHook;
+    }
+
+    public static String getTestRailUrl() {
+        if (testRailUrl == null) {
+            testRailUrl = loadProperty("testrail.url");
+        }
+        return testRailUrl;
+    }
+
+    public static String getTestRailUsername() {
+        if (testRailUsername == null) {
+            testRailUsername = loadProperty("testrail.username");
+        }
+        return testRailUsername;
+    }
+
+    public static String getTestRailPassword() {
+        if (testRailPassword == null) {
+            testRailPassword = loadProperty("testrail.password");
+        }
+        return testRailPassword;
+    }
+
+    public static String getSaucelabsUrl() {
+        if (saucelabsUrl == null) {
+            saucelabsUrl = loadProperty("saucelabs.url");
+        }
+        return saucelabsUrl;
     }
 }

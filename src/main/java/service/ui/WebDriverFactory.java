@@ -65,6 +65,13 @@ public class WebDriverFactory {
                     opt.merge(capabilities);
                     webDriver = new RemoteWebDriver(new URL(hubUrl), opt);
                 }
+            } else if(Config.getRemoteApp().equals("sauselabs")){
+                hubUrl = Config.getSaucelabsUrl();
+                DesiredCapabilities caps = DesiredCapabilities.chrome();
+                caps.setCapability("platform", "Windows 10");
+                caps.setCapability("version", "latest");
+                webDriver = new RemoteWebDriver(new URL(hubUrl), caps);
+
             }
         } else {
             if (CHROME.equals(Config.getBrowser().toLowerCase())) {
