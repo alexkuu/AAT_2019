@@ -1,8 +1,7 @@
 @LoginProfile
 Feature: Login Profile
-  As an employee of the company
-  I want to login my employee profile using my credentials
-  In order to collaborate with my colleagues
+  As an user of mail system
+  I want to login my user profile using my credentials
 
   Background: User navigates to gmail home page
     Given I am on the "Gmail" page on URL "http://gmail.com"
