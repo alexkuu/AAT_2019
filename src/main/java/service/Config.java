@@ -39,7 +39,7 @@ public class Config {
     private Config() {
     }
 
-    private static String loadProperty(String name) {
+    private static synchronized String loadProperty(String name) {
         return pReader.readProperty(name);
     }
 
