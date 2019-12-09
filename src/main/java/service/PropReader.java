@@ -30,6 +30,7 @@ public class PropReader {
 
     String readProperty(String propertyName) {
         for (String line : content.split("\r\n")) {
+            System.out.println("Reading property debug: Searching ["+propertyName+"]. LINE: " + line);
             if (line.split("=")[0].trim().equals(propertyName)) {
                 return line.split("=")[1];
             }
