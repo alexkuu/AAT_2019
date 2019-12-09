@@ -17,32 +17,32 @@ import java.lang.reflect.Method;
 public class AnotherBaseTest {
     final static Logger logger = Logger.getLogger(AnotherBaseTest.class);
 
-    private TRail tRail;
+//    private TRail tRail;
 
     @BeforeClass
     public void initClass() {
-        tRail = new TRail().initRun();
+//        tRail = new TRail().initRun();
     }
 
     @BeforeMethod
     public void init(Method method) {
-        tRail.addTestToRun(method.getName());
+//        tRail.addTestToRun(method.getName());
         DriverManager.set(new Driver());
         WebDriverRunner.setWebDriver(DriverManager.getDriver());
         logger.info("Before class");
-        Slack.reportTestStart(method.getName());
+//        Slack.reportTestStart(method.getName());
     }
 
     @AfterMethod
     public void shutDown(ITestResult result) {
-        tRail.markTestFinished(result);
-        Slack.reportTestFinish(result);
+//        tRail.markTestFinished(result);
+//        Slack.reportTestFinish(result);
         logger.info("Shut down");
         DriverManager.getDriver().close();
     }
 
     @AfterClass
     public void shutdownClass() {
-        tRail.finishRun();
+//        tRail.finishRun();
     }
 }
