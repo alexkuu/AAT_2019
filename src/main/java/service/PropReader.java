@@ -18,7 +18,8 @@ public class PropReader {
             URL res = PropReader.class.getClassLoader().getResource(fileName);
             System.out.println("Reading file:" + res.getPath());
             String stringPath = URLDecoder.decode(res.toString(), "UTF-8").replace("file:/", "")
-                    .replace("var/jenkins_home/workspace/PR-check_testBranch@script/", "");
+                    .replace("var/jenkins_home/workspace/PR-check_testBranch@script/", "")
+                    .replace("var/jenkins_home/workspace/PR-check_testBranch/", "");
             System.out.println("Decoded: " + stringPath);
             File file = Paths.get(stringPath).toFile();
             content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
