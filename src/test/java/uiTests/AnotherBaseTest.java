@@ -29,7 +29,7 @@ public class AnotherBaseTest {
 //        tRail.addTestToRun(method.getName());
         DriverManager.set(new Driver());
         WebDriverRunner.setWebDriver(DriverManager.getDriver());
-        logger.info("Before class");
+        logger.info("Starting test [" + method.getName() + "]");
 //        Slack.reportTestStart(method.getName());
     }
 

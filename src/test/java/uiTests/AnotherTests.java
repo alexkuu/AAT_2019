@@ -18,11 +18,25 @@ public class AnotherTests extends AnotherBaseTest {
     }
 
     @Test
-    public static void googlTestWithFail() {
-        open("http://google.com");
-        $(byName("q")).shouldBe(visible).setValue("microsoft").submit();
-        $(byText("Microsoft - Official Home Page")).shouldNotBe(visible);
+    public static void anotherYandexTest() {
+        open("http://ya.ru");
+        $(byAttribute("aria-label", "Запрос")).shouldBe(visible).setValue("microsoft").submit();
+        $(byText("microsoft.com")).shouldBe(visible);
     }
+
+    @Test
+    public static void anotherSecondYandexTest() {
+        open("http://ya.ru");
+        $(byAttribute("aria-label", "Запрос")).shouldBe(visible).setValue("microsoft").submit();
+        $(byText("microsoft.com")).shouldBe(visible);
+    }
+
+//    @Test
+//    public static void googlTestWithFail() {
+//        open("http://google.com");
+//        $(byName("q")).shouldBe(visible).setValue("microsoft").submit();
+//        $(byText("Microsoft - Official Home Page")).shouldNotBe(visible);
+//    }
 
     @Test
     public static void gmailHome() {
