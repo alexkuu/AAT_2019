@@ -1,5 +1,6 @@
 package service;
 
+import java.io.Console;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
@@ -12,6 +13,7 @@ public class PropReader {
     PropReader(String fileName) {
         try {
             URL res = PropReader.class.getClassLoader().getResource(fileName);
+            System.out.println("Reading file:" + res.getPath());
             File file = Paths.get(res.toURI()).toFile();
             content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
         } catch (Exception e) {
