@@ -80,6 +80,7 @@ public class Config {
         if (remoteRun == null) {
             remoteRun = loadProperty("remote").toLowerCase().equals("true");
         }
+        System.out.println("isRemoteRun: " + isRemoteRun());
         return remoteRun;
     }
 
