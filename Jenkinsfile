@@ -8,12 +8,10 @@ pipeline {
     }
   }
   stages {
-    step('Checkout') {
-      checkout scm
-    }
-    step('Test') {
+    stage('Test') {
       steps {
-        sh 'mvn -test'
+        checkout scm
+        sh 'mvn -еуые'
       }
     }
   }
