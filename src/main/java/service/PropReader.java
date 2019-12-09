@@ -42,13 +42,14 @@ public class PropReader {
     }
 
     String readProperty(String propertyName) {
+        System.out.println("Looking for property [" + propertyName + "]");
         for (String line : content) {
-            System.out.println("Reading property debug: Searching [" + propertyName + "]. LINE: " + line);
-            System.out.println("Current line property is: [" + line.split("=")[0].trim() + "]");
             if (line.split("=")[0].trim().equals(propertyName)) {
+                System.out.println("Found value: [" + line.split("=")[1] + "]");
                 return line.split("=")[1];
             }
         }
+        System.out.println("Value not found. Return null");
         return null;
     }
 }
