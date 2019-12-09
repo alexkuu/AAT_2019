@@ -28,7 +28,7 @@ public class PropReader {
                 line = br.readLine();
                 line = br.readLine();
                 while ((line = br.readLine()) != null) {
-                    if (line.contains("=")) {
+                    if (line.contains("=") && !line.startsWith("#")) {
                         content.add(line);
                     }
                 }
