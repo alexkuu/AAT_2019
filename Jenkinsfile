@@ -6,8 +6,16 @@ node('master') {
     checkout scm
   }
 
-  stage('Tests') {
-    sh "mvn test"
+  try {
+    stage('Tests') {
+      sh "mvn test"
+    }
+  } catch (ignored) {
+  }
+  finally {
+    stage('Report') {
+      sh "echo ${pwd}"
+    }
   }
 
 }
