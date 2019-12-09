@@ -8,12 +8,12 @@ pipeline {
     }
   }
   stages {
-    stage('Checkout') {
+    step('Checkout') {
       checkout scm
     }
-    stage('Build') {
+    step('Test') {
       steps {
-        sh 'mvn -B -DskipTests clean package'
+        sh 'mvn -test'
       }
     }
   }
