@@ -1,23 +1,20 @@
 #!groovy
 
-node('master') {
-
+pipeline {
   agent {
     docker {
       image 'maven:3-alpine'
       args '-v /root/.m2:/root/.m2'
     }
   }
-
-  dir("${pwd().tokenize('@')[0]}@script") {
-
+  stages {
     stage('Checkout') {
       checkout scm
     }
-
-    stage('Tests') {
-      sh "mvn test"
+    stage('Build') {
+      steps {
+        sh 'mvn -B -DskipTests clean package'
+      }
     }
-
   }
 }
