@@ -1,8 +1,11 @@
 package service;
 
+import com.sun.jndi.toolkit.url.Uri;
+
 import java.io.Console;
 import java.io.File;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -14,7 +17,9 @@ public class PropReader {
         try {
             URL res = PropReader.class.getClassLoader().getResource(fileName);
             System.out.println("Reading file:" + res.getPath());
-            File file = Paths.get(res.toURI()).toFile();
+            String stringPath = URLDecoder.decode(res.toString(), "UTF-8").replace("file:/", "");
+            System.out.println("Decoded: " + stringPath);
+            File file = Paths.get(stringPath).toFile();
             content = new String(Files.readAllBytes(Paths.get(file.getAbsolutePath())));
         } catch (Exception e) {
             e.printStackTrace();
