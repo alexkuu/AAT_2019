@@ -38,7 +38,7 @@ public class AnotherBaseTest {
 //        tRail.markTestFinished(result);
 //        Slack.reportTestFinish(result);
         logger.info("Shut down");
-        DriverManager.getDriver().close();
+        DriverManager.get().close();
     }
 
     @AfterClass
