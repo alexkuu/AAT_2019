@@ -31,7 +31,7 @@ public class Slack {
             client.execute(httpPost);
         } catch (IOException e) {
             logger.error(e.getMessage());
-        }e.printStackTrace();
+        }
     }
 
     public static void reportTestStart(String testName) {
