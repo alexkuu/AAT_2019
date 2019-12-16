@@ -4,6 +4,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.log4j.Logger;
 import org.testng.ITestResult;
 import service.Config;
 
@@ -13,13 +14,13 @@ import java.util.Date;
 public class Slack {
 
     private static String slackWebhookUrl = Config.getSlackWebHook();
+    private final static Logger logger = Logger.getLogger(Slack.class);
 
 
     private static void sendMessage(String message) {
-        CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(slackWebhookUrl);
 
-        try {
+        try (CloseableHttpClient client = HttpClients.createDefault();) {
             String json = "{\"text\":\"" + message + "\"}";
 
             StringEntity entity = new StringEntity(json);
@@ -28,10 +29,9 @@ public class Slack {
             httpPost.setHeader("Content-type", "application/json");
 
             client.execute(httpPost);
-            client.close();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
+            logger.error(e.getMessage());
+        }e.printStackTrace();
     }
 
     public static void reportTestStart(String testName) {
