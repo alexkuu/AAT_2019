@@ -18,7 +18,7 @@ node('master') {
       def source = "/var/lib/jenkins/workspace/Branch-check_${env.BRANCH_NAME}/target/surefire-reports/*"
       sh "mkdir -p ${targetDir}"
       sh "cp -r ${source} ${targetDir}"
-      sh "echo Report can be found at: ${env.JENKINS_URL}userContent/Branch-check/${env.BRANCH_NAME}/${env.BUILD_ID}/report/index.html"
+      sh "echo Report can be found at: ${env.JENKINS_URL.toString().replace("8080", "1818")}userContent/Branch-check/${env.BRANCH_NAME}/${env.BUILD_ID}/report/index.html"
     }
   }
 
