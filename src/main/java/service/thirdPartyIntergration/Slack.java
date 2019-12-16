@@ -13,8 +13,10 @@ import java.util.Date;
 
 public class Slack {
 
+    private Slack(){}
+
     private static String slackWebhookUrl = Config.getSlackWebHook();
-    private final static Logger logger = Logger.getLogger(Slack.class);
+    private static final Logger logger = Logger.getLogger(Slack.class);
 
 
     private static void sendMessage(String message) {

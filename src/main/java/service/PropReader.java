@@ -11,39 +11,42 @@ import java.util.ArrayList;
 
 public class PropReader {
 
-    private final static Logger logger = Logger.getLogger(PropReader.class);
+    private static final Logger logger = Logger.getLogger(PropReader.class);
     private ArrayList<String> content = new ArrayList<>();
 
     PropReader(String fileName) {
         try {
             URL res = PropReader.class.getClassLoader().getResource(fileName);
-            System.out.println("Reading file:" + res.getPath());
+            logger.info("Reading file:" + res.getPath());
             String stringPath = URLDecoder.decode(res.toString(), "UTF-8").replace("file:", "");
-            System.out.println("Decoded: " + stringPath);
-
-            try (BufferedReader br = new BufferedReader(new FileReader(new File(stringPath)))) {
-                String line, name, email;
-                // read through the first two lines to get to the data
-                line = br.readLine();
-                line = br.readLine();
-                while ((line = br.readLine()) != null) {
-                    if (line.contains("=") && !line.startsWith("#")) {
-                        content.add(line);
-                    }
-                }
-            } catch (Exception e) {
-                logger.error("There was an issue parsing the file.\n" + e.getMessage());
-            }
+            logger.info("Decoded: " + stringPath);
+            readFile(stringPath);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
     }
 
+    private void readFile(String path) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(path)))) {
+            String line;
+            // read through the first two lines to get to the data
+            line = br.readLine();
+            line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                if (line.contains("=") && !line.startsWith("#")) {
+                    content.add(line);
+                }
+            }
+        } catch (Exception e) {
+            logger.error("There was an issue parsing the file.\n" + e.getMessage());
+        }
+    }
+
     String readProperty(String propertyName) {
-        System.out.println("Looking for property [" + propertyName + "]");
+        logger.info("Looking for property [" + propertyName + "]");
         for (String line : content) {
             if (line.split("=")[0].trim().equals(propertyName)) {
-                System.out.println("Found value: [" + line.split("=")[1] + "]");
+                logger.info("Found value: [" + line.split("=")[1] + "]");
                 return line.split("=")[1];
             }
         }
