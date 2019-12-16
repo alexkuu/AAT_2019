@@ -43,7 +43,7 @@ public class AnotherTests extends AnotherBaseTest {
         open("http://gmail.com");
     }
 
-    @Test
+    @Test(enabled = false)
     public static void googleHomeWillFail() {
         open("http://google.com");
         assertTrue(false);
